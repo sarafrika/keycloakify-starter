@@ -33,7 +33,7 @@ declare global {
 }
 
 export const KcLoginPage = lazy(() => import("./login/KcPage"));
-
+export const KcRegisterPage = lazy(() => import("./login/pages/Register"));
 export function KcPage(props: { kcContext: KcContext; fallback?: ReactNode }) {
     const { kcContext, fallback } = props;
     return (
@@ -42,6 +42,8 @@ export function KcPage(props: { kcContext: KcContext; fallback?: ReactNode }) {
                 switch (kcContext.themeType) {
                     case "login":
                         return <KcLoginPage kcContext={kcContext} />;
+                    case "register":
+                        return <KcRegisterPage kcContext={kcContext} />;
                 }
             })()}
         </Suspense>

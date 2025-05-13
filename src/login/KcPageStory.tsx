@@ -11,14 +11,27 @@ const kcContextExtension: KcContextExtension = {
         ...kcEnvDefaults
     }
 };
-const kcContextExtensionPerPage: KcContextExtensionPerPage = {};
-
+const { getKcContextMock: getKcContextMock_base } = createGetKcContextMock({
+    kcContextExtension,
+    kcContextExtensionPerPage: {},
+    overrides: {},
+    overridesPerPage: {}
+});
+const kcContextExtensionPerPage: KcContextExtensionPerPage = {
+    "register.ftl": {
+        social: getKcContextMock_base({
+            pageId: "login.ftl",
+        }).social
+    }
+};
 export const { getKcContextMock } = createGetKcContextMock({
     kcContextExtension,
     kcContextExtensionPerPage,
     overrides: {},
     overridesPerPage: {}
 });
+
+
 
 export function createKcPageStory<PageId extends KcContext["pageId"]>(params: {
     pageId: PageId;
