@@ -47,7 +47,7 @@ export default function Register(props: RegisterProps) {
                                         className="flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
                                         href={p.loginUrl}
                                     >
-                                        {p.iconClasses && <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>}
+                                        {p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden="true"></i>}
                                         <span
                                             className={clsx("text-sm", p.iconClasses && "ml-1")}
                                             dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
@@ -64,7 +64,7 @@ export default function Register(props: RegisterProps) {
             displayMessage={messagesPerField.exists("global")}
             displayRequiredFields
         >
-            <form id="kc-register-form" className={kcClsx("kcFormClass")} action={url.registrationAction} method="post">
+            <form id="kc-register-form" className='space-y-4' action={url.registrationAction} method="post">
                 <UserProfileFormFields
                     kcContext={kcContext}
                     i18n={i18n}
@@ -83,13 +83,13 @@ export default function Register(props: RegisterProps) {
                 )}
                 {recaptchaRequired && (recaptchaVisible || recaptchaAction === undefined) && (
                     <div className="form-group">
-                        <div className={kcClsx("kcInputWrapperClass")}>
+                        <div className=''>
                             <div className="g-recaptcha" data-size="compact" data-sitekey={recaptchaSiteKey} data-action={recaptchaAction}></div>
                         </div>
                     </div>
                 )}
-                <div className="space-y-4">
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
+                <div className='space-y-4'>
+                    <div id="kc-form-options" >
                         <div className='ml-auto max-w-fit'>
                             <span>
                                 <a className="text-sm text-primary hover:underline" href={url.loginUrl}>{msg("backToLogin")}</a>
@@ -98,12 +98,8 @@ export default function Register(props: RegisterProps) {
                     </div>
 
                     {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (
-                        <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
+                        <div id="kc-form-buttons" >
                             <Button
-                                className={clsx(
-                                    kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass"),
-                                    "g-recaptcha"
-                                )}
                                 data-sitekey={recaptchaSiteKey}
                                 data-callback={() => {
                                     (document.getElementById("kc-register-form") as HTMLFormElement).submit();
@@ -115,7 +111,7 @@ export default function Register(props: RegisterProps) {
                             </Button>
                         </div>
                     ) : (
-                        <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
+                        <div id="kc-form-buttons" >
                             <Button
                                 disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
                                 className='w-full'

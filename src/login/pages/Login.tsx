@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { Input } from "@/components/ui/input";
@@ -13,12 +12,6 @@ import PasswordWrapper from "../PasswordWrapper";
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
-
-    // We still need to call getKcClsx for initialization even if we're not using the classes directly
-    const { kcClsx } = getKcClsx({
-        doUseDefaultCss,
-        classes
-    });
 
     const { social, realm, url, usernameHidden, login, auth, registrationDisabled, messagesPerField } = kcContext;
 
@@ -61,7 +54,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                         className="flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
                                         href={p.loginUrl}
                                     >
-                                        {p.iconClasses && <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>}
+                                        {p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden="true"></i>}
                                         <span
                                             className={clsx("text-sm", p.iconClasses && "ml-1")}
                                             dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
@@ -78,49 +71,50 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
         >
             <div id="kc-form">
                 <div id="kc-form-wrapper">
-                    {realm.password && (
-                        <form
-                            id="kc-form-login"
-                            onSubmit={() => {
-                                setIsLoginButtonDisabled(true);
-                                return true;
-                            }}
-                            action={url.loginAction}
-                            className="space-y-4"
-                            method="post"
-                        >
-                            {!usernameHidden && (
-                                <div className="space-y-2">
-                                    <Label htmlFor="username">
-                                        {!realm.loginWithEmailAllowed
-                                            ? msg("username")
-                                            : !realm.registrationEmailAsUsername
-                                                ? msg("usernameOrEmail")
-                                                : msg("email")}
-                                    </Label>
-                                    <Input
-                                        tabIndex={2}
-                                        id="username"
-                                        name="username"
-                                        defaultValue={login.username ?? ""}
-                                        type="text"
-                                        autoFocus
-                                        autoComplete="username"
-                                        aria-invalid={messagesPerField.existsError("username", "password")}
-                                    />
-                                    {messagesPerField.existsError("username", "password") && (
-                                        <span
-                                            id="input-error"
-                                            className="text-sm text-red-500"
-                                            aria-live="polite"
-                                            dangerouslySetInnerHTML={{
-                                                __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                            )}
 
+                    <form
+                        id="kc-form-login"
+                        onSubmit={() => {
+                            setIsLoginButtonDisabled(true);
+                            return true;
+                        }}
+                        action={url.loginAction}
+                        className="space-y-4"
+                        method="post"
+                    >
+                        {!usernameHidden && (
+                            <div className="space-y-2">
+                                <Label htmlFor="username">
+                                    {!realm.loginWithEmailAllowed
+                                        ? msg("username")
+                                        : !realm.registrationEmailAsUsername
+                                            ? msg("usernameOrEmail")
+                                            : msg("email")}
+                                </Label>
+                                <Input
+                                    tabIndex={2}
+                                    id="username"
+                                    name="username"
+                                    defaultValue={login.username ?? ""}
+                                    type="text"
+                                    autoFocus
+                                    autoComplete="username"
+                                    aria-invalid={messagesPerField.existsError("username", "password")}
+                                />
+                                {messagesPerField.existsError("username", "password") && (
+                                    <span
+                                        id="input-error"
+                                        className="text-sm text-red-500"
+                                        aria-live="polite"
+                                        dangerouslySetInnerHTML={{
+                                            __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        )}
+
+                        {realm.password && (
                             <div className="space-y-2">
                                 <Label htmlFor="password">
                                     {msg("password")}
@@ -146,50 +140,51 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                     />
                                 )}
                             </div>
+                        )}
 
-                            <div className="flex justify-between items-center">
-                                <div id="kc-form-options">
-                                    {realm.rememberMe && !usernameHidden && (
-                                        <div className="flex items-center">
-                                            <input
-                                                tabIndex={5}
-                                                id="rememberMe"
-                                                name="rememberMe"
-                                                type="checkbox"
-                                                className="h-4 w-4 text-blue-600 rounded"
-                                                defaultChecked={!!login.rememberMe}
-                                            />
-                                            <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
-                                                {msg("rememberMe")}
-                                            </label>
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    {realm.resetPasswordAllowed && (
-                                        <a tabIndex={6} href={url.loginResetCredentialsUrl} className="text-sm text-blue-600 hover:underline">
-                                            {msg("doForgotPassword")}
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
 
-                            <div id="kc-form-buttons">
-                                <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
-                                <Button
-                                    tabIndex={7}
-                                    disabled={isLoginButtonDisabled}
-                                    className={cn("w-full", isLoginButtonDisabled && "opacity-50 cursor-not-allowed")}
-                                    name="login"
-                                    id="kc-login"
-                                    type="submit"
-                                    value={msgStr("doLogIn")}
-                                >
-                                    {msg("doLogIn")}
-                                </Button>
+                        <div className="flex justify-between items-center">
+                            <div id="kc-form-options">
+                                {realm.rememberMe && !usernameHidden && (
+                                    <div className="flex items-center">
+                                        <input
+                                            tabIndex={5}
+                                            id="rememberMe"
+                                            name="rememberMe"
+                                            type="checkbox"
+                                            className="h-4 w-4 text-blue-600 rounded"
+                                            defaultChecked={!!login.rememberMe}
+                                        />
+                                        <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
+                                            {msg("rememberMe")}
+                                        </label>
+                                    </div>
+                                )}
                             </div>
-                        </form>
-                    )}
+                            <div>
+                                {realm.resetPasswordAllowed && (
+                                    <a tabIndex={6} href={url.loginResetCredentialsUrl} className="text-sm text-blue-600 hover:underline">
+                                        {msg("doForgotPassword")}
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+
+                        <div id="kc-form-buttons">
+                            <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
+                            <Button
+                                tabIndex={7}
+                                disabled={isLoginButtonDisabled}
+                                className={cn("w-full", isLoginButtonDisabled && "opacity-50 cursor-not-allowed")}
+                                name="login"
+                                id="kc-login"
+                                type="submit"
+                                value={msgStr("doLogIn")}
+                            >
+                                {msg("doLogIn")}
+                            </Button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </Template>
