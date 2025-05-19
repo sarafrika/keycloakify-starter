@@ -96,7 +96,6 @@ export default function Register(props: RegisterProps) {
                             </span>
                         </div>
                     </div>
-
                     {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (
                         <div id="kc-form-buttons" >
                             <Button

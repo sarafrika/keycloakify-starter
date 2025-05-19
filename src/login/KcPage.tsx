@@ -14,6 +14,10 @@ const Register = lazy(() => import("./pages/Register"));
 const LoginResetPassword = lazy(() => import("./pages/LoginResetPassword"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const LoginPassword = lazy(() => import("./pages/LoginPassword"));
+const LoginUpdateProfile = lazy(() => import("./pages/LoginUpdateProfile"));
+const LoginVerifyEmail = lazy(() => import("./pages/LoginVerifyEmail"));
+const LoginOauthGrant = lazy(() => import("./pages/LoginOauthGrant"));
+const Error = lazy(() => import("./pages/Error"));
 const doMakeUserConfirmPassword = true;
 
 export default function KcPage(props: { kcContext: KcContext }) {
@@ -70,6 +74,42 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-password.ftl":
                         return (
                             <LoginPassword
+                                doUseDefaultCss={false}
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                            />
+                        );
+
+                    case "login-update-profile.ftl":
+                        return (
+                            <LoginUpdateProfile
+                                {...{ kcContext, i18n, classes }}
+                                doUseDefaultCss={false}
+                                Template={Template}
+                                UserProfileFormFields={UserProfileFormFields}
+                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                            />
+                        );
+
+                    case "login-verify-email.ftl":
+                        return (
+                            <LoginVerifyEmail
+                                doUseDefaultCss={false}
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                            />
+                        );
+
+                    case "login-oauth-grant.ftl": return (
+                        <LoginOauthGrant
+                            {...{ kcContext, i18n, classes }}
+                            Template={Template}
+                            doUseDefaultCss={false}
+                        />
+                    );
+                    case 'error.ftl':
+                        return (
+                            <Error
                                 doUseDefaultCss={false}
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
