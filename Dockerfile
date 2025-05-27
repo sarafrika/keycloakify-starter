@@ -2,9 +2,9 @@ FROM quay.io/keycloak/keycloak:latest AS builder
 
 WORKDIR /opt/keycloak
 
-# Copy your custom theme JAR to the providers directory
-# Assuming your theme JAR is in the same directory as this Dockerfile
-COPY sarafrika-theme.jar /opt/keycloak/providers/
+# Copy the JAR file for Keycloak versions other than 22-25 (for v26+)
+# Since we're using Keycloak version > 26, we use the all-other-versions JAR
+COPY dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar /opt/keycloak/providers/
 
 # Build Keycloak with the custom theme
 RUN /opt/keycloak/bin/kc.sh build
