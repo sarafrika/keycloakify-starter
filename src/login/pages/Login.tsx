@@ -26,14 +26,14 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
             displayMessage={!messagesPerField.existsError("username", "password")}
-            headerNode={msg("loginAccountTitle")}
+            headerNode={"Sign in with email"}
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
                 <div id="kc-registration-container" className="text-sm mt-2">
                     <div id="kc-registration">
                         <span>
                             {msg("noAccount")}{" "}
-                            <a tabIndex={8} href={url.registrationUrl} className="text-primary hover:underline">
+                            <a tabIndex={8} href={url.registrationUrl} className="text-blue-600 hover:underline">
                                 {msg("doRegister")}
                             </a>
                         </span>
@@ -42,29 +42,29 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             }
             socialProvidersNode={
                 <>
-                    {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
-                        <>
-                            <div className="text-center text-sm text-muted-foreground mb-4">Or Sign in with</div>
-                            <div id="kc-social-providers" className="flex gap-2 justify-center flex-wrap mb-4">
-                                {social.providers.map(p =>
+                    {social?.providers !== undefined && social.providers.length !== 0 && (
+                        <div id="kc-social-providers" className="grid grid-cols-3 gap-2">
+                            {social.providers.map(p =>
                                 (
                                     <a
                                         key={p.alias}
                                         id={`social-${p.alias}`}
-                                        className="flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
+                                        className="flex items-center justify-center p-2 border rounded-md hover:bg-gray-50 transition-colors"
                                         href={p.loginUrl}
                                     >
-                                        {p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden="true"></i>}
-                                        <span
-                                            className={clsx("text-sm", p.iconClasses && "ml-1")}
-                                            dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
-                                        ></span>
+                                        {/* Using simple text for now, you'd replace with actual icons */}
+                                        {p.alias === "google" && <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google" className="h-5 w-5" />}
+                                        {p.alias === "facebook" && <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="h-5 w-5" />}
+                                        {p.alias === "apple" && <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" className="h-5 w-5" />}
+                                        {/* Fallback for other providers */}
+                                        {!["google", "facebook", "apple"].includes(p.alias) && p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden="true"></i>}
+                                        {/* <span
+                                        className="sr-only" // Hide text, show only icon as in inspiration
+                                        dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
+                                    ></span> */}
                                     </a>)
-
-                                )}
-                            </div>
-                            {/* <div className="text-center text-sm text-muted-foreground mb-4">or</div> */}
-                        </>
+                            )}
+                        </div>
                     )}
                 </>
             }
@@ -84,23 +84,30 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                     >
                         {!usernameHidden && (
                             <div className="space-y-2">
-                                <Label htmlFor="username">
+                                <Label htmlFor="username" className="sr-only">
                                     {!realm.loginWithEmailAllowed
                                         ? msg("username")
                                         : !realm.registrationEmailAsUsername
                                             ? msg("usernameOrEmail")
                                             : msg("email")}
                                 </Label>
-                                <Input
-                                    tabIndex={2}
-                                    id="username"
-                                    name="username"
-                                    defaultValue={login.username ?? ""}
-                                    type="text"
-                                    autoFocus
-                                    autoComplete="username"
-                                    aria-invalid={messagesPerField.existsError("username", "password")}
-                                />
+                                <div className="relative">
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                        ✉️
+                                    </span>
+                                    <Input
+                                        tabIndex={2}
+                                        id="username"
+                                        name="username"
+                                        defaultValue={login.username ?? ""}
+                                        type="text"
+                                        placeholder="Email"
+                                        autoFocus
+                                        autoComplete="username"
+                                        aria-invalid={messagesPerField.existsError("username", "password")}
+                                        className="pl-10"
+                                    />
+                                </div>
                                 {messagesPerField.existsError("username", "password") && (
                                     <span
                                         id="input-error"
@@ -116,19 +123,26 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 
                         {realm.password && (
                             <div className="space-y-2">
-                                <Label htmlFor="password">
+                                <Label htmlFor="password" className="sr-only">
                                     {msg("password")}
                                 </Label>
-                                <PasswordWrapper i18n={i18n} passwordInputId="password">
-                                    <Input
-                                        tabIndex={3}
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        aria-invalid={messagesPerField.existsError("username", "password")}
-                                    />
-                                </PasswordWrapper>
+                                <div className="relative">
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                        🔒
+                                    </span>
+                                    <PasswordWrapper i18n={i18n} passwordInputId="password">
+                                        <Input
+                                            tabIndex={3}
+                                            id="password"
+                                            name="password"
+                                            type="password"
+                                            placeholder="Password"
+                                            autoComplete="current-password"
+                                            aria-invalid={messagesPerField.existsError("username", "password")}
+                                            className="pl-10"
+                                        />
+                                    </PasswordWrapper>
+                                </div>
                                 {usernameHidden && messagesPerField.existsError("username", "password") && (
                                     <span
                                         id="input-error"
@@ -143,24 +157,22 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                         )}
 
 
-                        <div className="flex justify-between items-center">
-                            <div id="kc-form-options">
-                                {realm.rememberMe && !usernameHidden && (
-                                    <div className="flex items-center">
-                                        <input
-                                            tabIndex={5}
-                                            id="rememberMe"
-                                            name="rememberMe"
-                                            type="checkbox"
-                                            className="h-4 w-4 text-blue-600 rounded"
-                                            defaultChecked={!!login.rememberMe}
-                                        />
-                                        <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
-                                            {msg("rememberMe")}
-                                        </label>
-                                    </div>
-                                )}
-                            </div>
+                        <div className="flex justify-end items-center">
+                            {realm.rememberMe && !usernameHidden && (
+                                <div className="flex items-center sr-only">
+                                    <input
+                                        tabIndex={5}
+                                        id="rememberMe"
+                                        name="rememberMe"
+                                        type="checkbox"
+                                        className="h-4 w-4 text-blue-600 rounded"
+                                        defaultChecked={!!login.rememberMe}
+                                    />
+                                    <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
+                                        {msg("rememberMe")}
+                                    </label>
+                                </div>
+                            )}
                             <div>
                                 {realm.resetPasswordAllowed && (
                                     <a tabIndex={6} href={url.loginResetCredentialsUrl} className="text-sm text-blue-600 hover:underline">
@@ -175,13 +187,13 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             <Button
                                 tabIndex={7}
                                 disabled={isLoginButtonDisabled}
-                                className={cn("w-full", isLoginButtonDisabled && "opacity-50 cursor-not-allowed")}
+                                className={cn("w-full py-2 text-lg font-semibold", isLoginButtonDisabled && "opacity-50 cursor-not-allowed")}
                                 name="login"
                                 id="kc-login"
                                 type="submit"
                                 value={msgStr("doLogIn")}
                             >
-                                {msg("doLogIn")}
+                                Get Started
                             </Button>
                         </div>
                     </form>
@@ -190,4 +202,3 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
         </Template>
     );
 }
-

@@ -2,6 +2,7 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
+import { Button } from "@/components/ui/button";
 
 export default function Error(props: PageProps<Extract<KcContext, { pageId: "error.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -19,14 +20,19 @@ export default function Error(props: PageProps<Extract<KcContext, { pageId: "err
             displayMessage={false}
             headerNode={msg("errorTitle")}
         >
-            <div id="kc-error-message" className="space-y-2" >
-                <p className="text-destructive bg-destructive/10 p-4 rounded-md" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+            <div className="space-y-4 text-center">
+                {message !== undefined && (
+                    <p className="text-red-600 dark:text-red-400 font-medium" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+                )}
+
                 {!skipLink && client !== undefined && client.baseUrl !== undefined && (
-                    <p className="space-y-2">
-                        <a className="text-primary hover:underline" id="backToApplication" href={client.baseUrl}>
-                            {msg("backToApplication")}
+                    <div className="mt-6">
+                        <a id="backToApplication" href={client.baseUrl}>
+                            <Button className="w-full py-2 text-lg font-semibold">
+                                {msg("backToApplication")}
+                            </Button>
                         </a>
-                    </p>
+                    </div>
                 )}
             </div>
         </Template>

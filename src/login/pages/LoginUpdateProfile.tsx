@@ -7,6 +7,7 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type LoginUpdateProfileProps = PageProps<Extract<KcContext, { pageId: "login-update-profile.ftl" }>, I18n> & {
     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
@@ -36,7 +37,7 @@ export default function LoginUpdateProfile(props: LoginUpdateProfileProps) {
             headerNode={msg("loginProfileTitle")}
             displayMessage={messagesPerField.exists("global")}
         >
-            <form id="kc-update-profile-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
+            <form id="kc-update-profile-form" className="space-y-4" action={url.loginAction} method="post">
                 <UserProfileFormFields
                     kcContext={kcContext}
                     i18n={i18n}
@@ -44,14 +45,11 @@ export default function LoginUpdateProfile(props: LoginUpdateProfileProps) {
                     onIsFormSubmittableValueChange={setIsFormSubmittable}
                     doMakeUserConfirmPassword={doMakeUserConfirmPassword}
                 />
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-                        <div className={kcClsx("kcFormOptionsWrapperClass")} />
-                    </div>
+                <div className="flex flex-col gap-4 mt-6">
                     <div id="kc-form-buttons" className='space-y-2'>
                         <Button
                             disabled={!isFormSubmittable}
-                            className='w-full'
+                            className={cn('w-full py-2 text-lg font-semibold', !isFormSubmittable && "opacity-50 cursor-not-allowed")}
                             type="submit"
                             value={msgStr("doSubmit")}
                         >
@@ -61,7 +59,7 @@ export default function LoginUpdateProfile(props: LoginUpdateProfileProps) {
                             <Button
                                 variant='outline'
                                 type="submit"
-                                className='w-full'
+                                className='w-full py-2 text-lg font-semibold'
                                 name="cancel-aia"
                                 value="true"
                                 formNoValidate
