@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import PasswordWrapper from "../PasswordWrapper";
+import { cn } from "@/lib/utils"; // Assuming you have a utility for tailwind-merge or similar
+
 export default function LoginPassword(props: PageProps<Extract<KcContext, { pageId: "login-password.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
     const { realm, url, messagesPerField } = kcContext;
@@ -21,7 +23,7 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
             i18n={i18n}
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
-            headerNode={msg("doLogIn")}
+            headerNode={msg("doLogIn")} // This will be "Sign in" or similar based on i18n
             displayMessage={!messagesPerField.existsError("password")}
         >
             <div id="kc-form">
@@ -37,27 +39,32 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                         method="post"
                     >
                         <div className='space-y-2'>
-                            <Label htmlFor="password" >
+                            <Label htmlFor="password" className="sr-only">
                                 {msg("password")}
                             </Label>
-
-                            <PasswordWrapper i18n={i18n} passwordInputId="password">
-                                <Input
-                                    tabIndex={2}
-                                    id="password"
-                                    className='w-full'
-                                    name="password"
-                                    type="password"
-                                    autoFocus
-                                    autoComplete="on"
-                                    aria-invalid={messagesPerField.existsError("username", "password")}
-                                />
-                            </PasswordWrapper>
+                            <div className="relative">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    🔒
+                                </span>
+                                <PasswordWrapper i18n={i18n} passwordInputId="password">
+                                    <Input
+                                        tabIndex={2}
+                                        id="password"
+                                        className='w-full pl-10' // Added pl-10 for icon padding
+                                        name="password"
+                                        type="password"
+                                        placeholder={msgStr("password")} // Use placeholder for password
+                                        autoFocus
+                                        autoComplete="on"
+                                        aria-invalid={messagesPerField.existsError("password")}
+                                    />
+                                </PasswordWrapper>
+                            </div>
 
                             {messagesPerField.existsError("password") && (
                                 <span
                                     id="input-error-password"
-                                    className='text-destructive py-2'
+                                    className='text-red-600 dark:text-red-400 text-sm' // Consistent error message styling
                                     aria-live="polite"
                                     dangerouslySetInnerHTML={{
                                         __html: kcSanitize(messagesPerField.get("password"))
@@ -65,22 +72,19 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                                 />
                             )}
                         </div>
-                        <div>
-                            <div id="kc-form-options" />
-                            <div >
-                                {realm.resetPasswordAllowed && (
-                                    <span>
-                                        <a className='text-primary hover:underline' tabIndex={5} href={url.loginResetCredentialsUrl}>
-                                            {msg("doForgotPassword")}
-                                        </a>
-                                    </span>
-                                )}
-                            </div>
+
+                        <div className="flex justify-end items-center">
+                            {realm.resetPasswordAllowed && (
+                                <a className='text-blue-600 hover:underline dark:text-blue-400' tabIndex={5} href={url.loginResetCredentialsUrl}>
+                                    {msg("doForgotPassword")}
+                                </a>
+                            )}
                         </div>
-                        <div id="kc-form-buttons" >
+
+                        <div id="kc-form-buttons">
                             <Button
                                 tabIndex={4}
-                                className={'w-full'}
+                                className={cn('w-full py-2 text-lg font-semibold', isLoginButtonDisabled && "opacity-50 cursor-not-allowed")} // Consistent button styling
                                 name="login"
                                 id="kc-login"
                                 type="submit"

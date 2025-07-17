@@ -1,11 +1,12 @@
-import { Suspense, lazy } from "react";
+import { lazy, Suspense } from "react";
 import "./index.css";
 import type { ClassKey } from "keycloakify/login";
 import type { KcContext } from "./KcContext";
-import { useI18n } from "./i18n";
 import DefaultPage from "keycloakify/login/DefaultPage";
 import Template from "./Template";
 import LoginUsername from "./pages/LoginUsername";
+import { useI18n } from "./i18n";
+
 const UserProfileFormFields = lazy(
     () => import("./UserProfileFormFields")
 );
@@ -18,6 +19,8 @@ const LoginUpdateProfile = lazy(() => import("./pages/LoginUpdateProfile"));
 const LoginVerifyEmail = lazy(() => import("./pages/LoginVerifyEmail"));
 const LoginOauthGrant = lazy(() => import("./pages/LoginOauthGrant"));
 const Error = lazy(() => import("./pages/Error"));
+const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
+const LoginIdpLinkEmail = lazy(() => import("./pages/LoginIdpLinkEmail"));
 const doMakeUserConfirmPassword = true;
 
 export default function KcPage(props: { kcContext: KcContext }) {
@@ -107,6 +110,22 @@ export default function KcPage(props: { kcContext: KcContext }) {
                             doUseDefaultCss={false}
                         />
                     );
+                    case "login-idp-link-confirm.ftl":
+                        return (
+                            <LoginIdpLinkConfirm
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "login-idp-link-email.ftl":
+                        return (
+                            <LoginIdpLinkEmail
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
                     case 'error.ftl':
                         return (
                             <Error
