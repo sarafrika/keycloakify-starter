@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards." />
+    <list default="true" id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards.">
+      <change beforePath="$PROJECT_DIR$/src/login/PasswordWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/PasswordWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/pages/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/pages/Register.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,26 +60,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/willy/WebstormProjects/elimika-ui",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "npm.storybook.executor": "Debug",
-    "prettierjs.PrettierConfiguration.Package": "/home/willy/WebstormProjects/keycloakify-starter/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/home/willy/WebstormProjects/keycloakify-starter/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/willy/WebstormProjects/elimika-ui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;npm.storybook.executor&quot;: &quot;Debug&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/willy/WebstormProjects/keycloakify-starter/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/willy/WebstormProjects/keycloakify-starter/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="storybook" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -124,6 +127,7 @@
       <workItem from="1752751153986" duration="8890000" />
       <workItem from="1752857322495" duration="3554000" />
       <workItem from="1752861470772" duration="520000" />
+      <workItem from="1752862056326" duration="522000" />
     </task>
     <task id="LOCAL-00001" summary="fix: Naming the theme as Sarafrika">
       <option name="closed" value="true" />
@@ -165,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752861758895</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards.">
+      <option name="closed" value="true" />
+      <created>1752862321766</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1752862321766</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

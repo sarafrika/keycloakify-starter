@@ -10,7 +10,7 @@ import type { I18n } from "../i18n";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { SocialIcon } from "@/components/SocialIcon.tsx";
+import { SocialIcon } from "@/components/SocialIcon";
 
 type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
@@ -132,7 +132,7 @@ export default function Register(props: RegisterProps) {
 
                     <Button
                         variant="outline"
-                        className="w-full h-12 text-base font-medium rounded-xl border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200"
+                        className="w-full h-12 text-base font-medium rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200"
                         onClick={(e) => {
                             e.preventDefault();
                             window.location.href = url.loginUrl;
@@ -170,22 +170,7 @@ function TermsAcceptance(props: {
                 />
                 <div className="flex-1">
                     <Label htmlFor="termsAccepted" className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                        I agree to the{" "}
-                        <a
-                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
-                            href="#"
-                            onClick={(e) => { e.preventDefault(); /* Open terms modal/page */ }}
-                        >
-                            Terms of Service
-                        </a>{" "}
-                        and{" "}
-                        <a
-                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
-                            href="#"
-                            onClick={(e) => { e.preventDefault(); /* Open privacy modal/page */ }}
-                        >
-                            Privacy Policy
-                        </a>
+                        {msg("acceptTerms")}
                     </Label>
                 </div>
             </div>
