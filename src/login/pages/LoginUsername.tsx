@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { clsx } from "keycloakify/tools/clsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
-import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { SocialIcon } from "@/components/SocialIcon";
 
 export default function LoginUsername(props: PageProps<Extract<KcContext, { pageId: "login-username.ftl" }>, I18n>) {
     const { kcContext, i18n, Template, classes } = props;
-
-
 
     const { social, realm, url, usernameHidden, login, registrationDisabled, messagesPerField } = kcContext;
 
@@ -28,120 +26,187 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
             displayMessage={!messagesPerField.existsError("username")}
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
-                <div id="kc-registration">
-                    <span>
+                <div className="text-center">
+                    <span className="text-slate-600 dark:text-slate-400">
                         {msg("noAccount")}&nbsp;
-                        <a className='text-primary hover:underline' tabIndex={6} href={url.registrationUrl}>
+                        <a
+                            className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                            tabIndex={6}
+                            href={url.registrationUrl}
+                        >
                             {msg("doRegister")}
                         </a>
                     </span>
                 </div>
             }
-            headerNode={msg("doLogIn")}
+            headerNode={"Welcome to Sarafrika"}
             socialProvidersNode={
                 <>
                     {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
-                        <>
-                            <div className="text-center text-sm text-muted-foreground mb-4">Or Sign in with</div>
-                            <div id="kc-social-providers" className="flex gap-2 justify-center flex-wrap mb-4">
-                                {social.providers.map(p =>
-                                (
-                                    <a
-                                        key={p.alias}
-                                        id={`social-${p.alias}`}
-                                        className="flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
-                                        href={p.loginUrl}
-                                    >
-                                        {p.iconClasses && <i className={clsx('', p.iconClasses)} aria-hidden="true"></i>}
-                                        <span
-                                            className={clsx("text-sm", p.iconClasses && "ml-1")}
-                                            dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
-                                        ></span>
-                                    </a>)
-
-                                )}
-                            </div>
-                            {/* <div className="text-center text-sm text-muted-foreground mb-4">or</div> */}
-                        </>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {social.providers.map(p => (
+                                <a
+                                    key={p.alias}
+                                    id={`social-${p.alias}`}
+                                    className="flex items-center justify-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-2 border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-slate-300/60 dark:hover:border-slate-600/60 transition-all duration-200 group shadow-sm hover:shadow-md"
+                                    href={p.loginUrl}
+                                >
+                                    <SocialIcon provider={p.alias} className="h-5 w-5 flex-shrink-0" />
+                                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors text-sm sm:text-base">
+                                        {p.alias === "google"
+                                            ? "Google"
+                                            : p.alias === "apple"
+                                              ? "Apple"
+                                              : p.alias === "microsoft"
+                                                ? "Microsoft"
+                                                : p.alias === "facebook"
+                                                  ? "Facebook"
+                                                  : p.alias === "github"
+                                                    ? "GitHub"
+                                                    : p.alias === "twitter" || p.alias === "x"
+                                                      ? "X"
+                                                      : p.alias === "linkedin"
+                                                        ? "LinkedIn"
+                                                        : p.alias === "discord"
+                                                          ? "Discord"
+                                                          : p.displayName || p.alias}
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
                     )}
                 </>
             }
         >
-            <div id="kc-form">
-                <div id="kc-form-wrapper">
-                    {realm.password && (
-                        <form
-                            className='space-y-4'
-                            id="kc-form-login"
-                            onSubmit={() => {
-                                setIsLoginButtonDisabled(true);
-                                return true;
-                            }}
-                            action={url.loginAction}
-                            method="post"
-                        >
-                            {!usernameHidden && (
-                                <div className='space-y-2'>
-                                    <Label htmlFor="username" >
-                                        {!realm.loginWithEmailAllowed
-                                            ? msg("username")
-                                            : !realm.registrationEmailAsUsername
-                                                ? msg("usernameOrEmail")
-                                                : msg("email")}
-                                    </Label>
-                                    <Input
-                                        tabIndex={2}
-                                        id="username"
-                                        name="username"
-                                        defaultValue={login.username ?? ""}
-                                        type="text"
-                                        autoFocus
-                                        autoComplete="username"
-                                        aria-invalid={messagesPerField.existsError("username")}
-                                    />
-                                    {messagesPerField.existsError("username") && (
-                                        <span id="input-error" className='text-destructive py-2' aria-live="polite">
-                                            {messagesPerField.getFirstError("username")}
-                                        </span>
-                                    )}
-                                </div>
-                            )}
-                            <div className='space-y-2'>
-                                <div id="kc-form-options">
-                                    {realm.rememberMe && !usernameHidden && (
-                                        <div className="checkbox">
-                                            <label>
-                                                <input
-                                                    tabIndex={3}
-                                                    id="rememberMe"
-                                                    name="rememberMe"
-                                                    type="checkbox"
-                                                    defaultChecked={!!login.rememberMe}
-                                                />{" "}
-                                                {msg("rememberMe")}
-                                            </label>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div id="kc-form-buttons" >
-                                <Button
-                                    tabIndex={4}
-                                    disabled={isLoginButtonDisabled}
-                                    className={'w-full'}
-                                    name="login"
-                                    id="kc-login"
-                                    type="submit"
-                                    value={msgStr("doLogIn")}
+            {realm.password && (
+                <form
+                    className="space-y-5"
+                    id="kc-form-login"
+                    onSubmit={() => {
+                        setIsLoginButtonDisabled(true);
+                        return true;
+                    }}
+                    action={url.loginAction}
+                    method="post"
+                >
+                    {!usernameHidden && (
+                        <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                <svg
+                                    className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
                                 >
-                                    {msg("doLogIn")}
-                                </Button>
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={1.5}
+                                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                                    />
+                                </svg>
                             </div>
-                        </form>
+                            <Input
+                                tabIndex={2}
+                                id="username"
+                                name="username"
+                                defaultValue={login.username ?? ""}
+                                type="text"
+                                autoFocus
+                                autoComplete="username"
+                                placeholder=" "
+                                aria-invalid={messagesPerField.existsError("username")}
+                                className={cn(
+                                    "w-full h-14 pl-12 pt-6 pb-2 bg-white/80 dark:bg-slate-800/80",
+                                    "border-2 border-slate-200 dark:border-slate-700 rounded-xl",
+                                    "focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                                    "transition-all duration-200 placeholder-transparent",
+                                    messagesPerField.existsError("username") && "border-red-300 dark:border-red-600 focus:ring-red-500"
+                                )}
+                            />
+                            <Label
+                                htmlFor="username"
+                                className="absolute left-12 top-2 text-xs font-medium text-blue-600 dark:text-blue-400 transition-all duration-200 pointer-events-none"
+                            >
+                                {!realm.loginWithEmailAllowed
+                                    ? msg("username")
+                                    : !realm.registrationEmailAsUsername
+                                      ? msg("usernameOrEmail")
+                                      : msg("email")}
+                            </Label>
+                        </div>
                     )}
-                </div>
-            </div>
+
+                    {messagesPerField.existsError("username") && (
+                        <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
+                            <svg className="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                            <span className="text-sm text-red-600 dark:text-red-400" aria-live="polite">
+                                {messagesPerField.getFirstError("username")}
+                            </span>
+                        </div>
+                    )}
+
+                    {/* Remember Me */}
+                    <div>
+                        {realm.rememberMe && !usernameHidden && (
+                            <div className="flex items-center space-x-2">
+                                <input
+                                    tabIndex={3}
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                    type="checkbox"
+                                    defaultChecked={!!login.rememberMe}
+                                    className="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:checked:bg-blue-500"
+                                />
+                                <Label htmlFor="rememberMe" className="text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+                                    {msg("rememberMe")}
+                                </Label>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Continue Button */}
+                    <div className="pt-2">
+                        <Button
+                            tabIndex={4}
+                            disabled={isLoginButtonDisabled}
+                            className={cn(
+                                "w-full h-12 text-base font-semibold rounded-xl",
+                                "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
+                                "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200",
+                                isLoginButtonDisabled && "opacity-50 cursor-not-allowed transform-none"
+                            )}
+                            name="login"
+                            id="kc-login"
+                            type="submit"
+                            value={msgStr("doLogIn")}
+                        >
+                            {isLoginButtonDisabled ? (
+                                <div className="flex items-center justify-center space-x-2">
+                                    <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                        ></path>
+                                    </svg>
+                                    <span>Continue...</span>
+                                </div>
+                            ) : (
+                                "Continue"
+                            )}
+                        </Button>
+                    </div>
+                </form>
+            )}
         </Template>
     );
 }
