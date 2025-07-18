@@ -1,0 +1,424 @@
+Index: src/login/KcPage.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import { Suspense, lazy } from \"react\";\nimport \"./index.css\";\nimport type { ClassKey } from \"keycloakify/login\";\nimport type { KcContext } from \"./KcContext\";\nimport { useI18n } from \"./i18n\";\nimport DefaultPage from \"keycloakify/login/DefaultPage\";\nimport Template from \"./Template\";\nimport LoginUsername from \"./pages/LoginUsername\";\nconst UserProfileFormFields = lazy(\n    () => import(\"./UserProfileFormFields\")\n);\nconst Login = lazy(() => import(\"./pages/Login\"));\nconst Register = lazy(() => import(\"./pages/Register\"));\nconst LoginResetPassword = lazy(() => import(\"./pages/LoginResetPassword\"));\nconst LoginUpdatePassword = lazy(() => import(\"./pages/LoginUpdatePassword\"));\nconst LoginPassword = lazy(() => import(\"./pages/LoginPassword\"));\nconst LoginUpdateProfile = lazy(() => import(\"./pages/LoginUpdateProfile\"));\nconst LoginVerifyEmail = lazy(() => import(\"./pages/LoginVerifyEmail\"));\nconst LoginOauthGrant = lazy(() => import(\"./pages/LoginOauthGrant\"));\nconst Error = lazy(() => import(\"./pages/Error\"));\nconst doMakeUserConfirmPassword = true;\n\nexport default function KcPage(props: { kcContext: KcContext }) {\n    const { kcContext } = props;\n\n    const { i18n } = useI18n({ kcContext });\n\n    return (\n        <Suspense>\n            {(() => {\n                switch (kcContext.pageId) {\n                    case \"login.ftl\":\n                        return (\n                            <Login\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                                doUseDefaultCss={false}\n                            />\n                        );\n                    case \"register.ftl\":\n                        return (\n                            <Register\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                                doUseDefaultCss={false}\n                                UserProfileFormFields={UserProfileFormFields}\n                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}\n                            />\n                        );\n                    case \"login-reset-password.ftl\":\n                        return (\n                            <LoginResetPassword\n                                doUseDefaultCss={false}\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                            />\n                        );\n                    case \"login-update-password.ftl\":\n                        return (\n                            <LoginUpdatePassword\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                                doUseDefaultCss={false}\n                            />\n                        );\n                    case \"login-username.ftl\":\n                        return (\n                            <LoginUsername\n                                doUseDefaultCss={false}\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                            />\n                        );\n                    case \"login-password.ftl\":\n                        return (\n                            <LoginPassword\n                                doUseDefaultCss={false}\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                            />\n                        );\n\n                    case \"login-update-profile.ftl\":\n                        return (\n                            <LoginUpdateProfile\n                                {...{ kcContext, i18n, classes }}\n                                doUseDefaultCss={false}\n                                Template={Template}\n                                UserProfileFormFields={UserProfileFormFields}\n                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}\n                            />\n                        );\n\n                    case \"login-verify-email.ftl\":\n                        return (\n                            <LoginVerifyEmail\n                                doUseDefaultCss={false}\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                            />\n                        );\n\n                    case \"login-oauth-grant.ftl\": return (\n                        <LoginOauthGrant\n                            {...{ kcContext, i18n, classes }}\n                            Template={Template}\n                            doUseDefaultCss={false}\n                        />\n                    );\n                    case 'error.ftl':\n                        return (\n                            <Error\n                                doUseDefaultCss={false}\n                                {...{ kcContext, i18n, classes }}\n                                Template={Template}\n                            />\n                        );\n                    default:\n                        return (\n                            <DefaultPage\n                                kcContext={kcContext}\n                                i18n={i18n}\n                                classes={classes}\n                                Template={Template}\n                                doUseDefaultCss={false}\n                                UserProfileFormFields={UserProfileFormFields}\n                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}\n                            />\n                        );\n                }\n            })()}\n        </Suspense>\n    );\n}\n\nconst classes = {} satisfies { [key in ClassKey]?: string };\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/login/KcPage.tsx b/src/login/KcPage.tsx
+--- a/src/login/KcPage.tsx	(revision bbe157698bbbcd417eb6041e975b77868e22a293)
++++ b/src/login/KcPage.tsx	(date 1752862232002)
+@@ -6,9 +6,8 @@
+ import DefaultPage from "keycloakify/login/DefaultPage";
+ import Template from "./Template";
+ import LoginUsername from "./pages/LoginUsername";
+-const UserProfileFormFields = lazy(
+-    () => import("./UserProfileFormFields")
+-);
++
++const UserProfileFormFields = lazy(() => import("./UserProfileFormFields"));
+ const Login = lazy(() => import("./pages/Login"));
+ const Register = lazy(() => import("./pages/Register"));
+ const LoginResetPassword = lazy(() => import("./pages/LoginResetPassword"));
+@@ -17,7 +16,11 @@
+ const LoginUpdateProfile = lazy(() => import("./pages/LoginUpdateProfile"));
+ const LoginVerifyEmail = lazy(() => import("./pages/LoginVerifyEmail"));
+ const LoginOauthGrant = lazy(() => import("./pages/LoginOauthGrant"));
++const LoginPageExpired = lazy(() => import("./pages/LoginPageExpired"));
++const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
++const LoginIdpLinkEmail = lazy(() => import("./pages/LoginIdpLinkEmail"));
+ const Error = lazy(() => import("./pages/Error"));
++
+ const doMakeUserConfirmPassword = true;
+ 
+ export default function KcPage(props: { kcContext: KcContext }) {
+@@ -37,6 +40,7 @@
+                                 doUseDefaultCss={false}
+                             />
+                         );
++
+                     case "register.ftl":
+                         return (
+                             <Register
+@@ -47,6 +51,7 @@
+                                 doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                             />
+                         );
++
+                     case "login-reset-password.ftl":
+                         return (
+                             <LoginResetPassword
+@@ -55,6 +60,7 @@
+                                 Template={Template}
+                             />
+                         );
++
+                     case "login-update-password.ftl":
+                         return (
+                             <LoginUpdatePassword
+@@ -63,6 +69,7 @@
+                                 doUseDefaultCss={false}
+                             />
+                         );
++
+                     case "login-username.ftl":
+                         return (
+                             <LoginUsername
+@@ -71,6 +78,7 @@
+                                 Template={Template}
+                             />
+                         );
++
+                     case "login-password.ftl":
+                         return (
+                             <LoginPassword
+@@ -100,14 +108,43 @@
+                             />
+                         );
+ 
+-                    case "login-oauth-grant.ftl": return (
+-                        <LoginOauthGrant
+-                            {...{ kcContext, i18n, classes }}
+-                            Template={Template}
+-                            doUseDefaultCss={false}
+-                        />
+-                    );
+-                    case 'error.ftl':
++                    case "login-oauth-grant.ftl":
++                        return (
++                            <LoginOauthGrant
++                                {...{ kcContext, i18n, classes }}
++                                Template={Template}
++                                doUseDefaultCss={false}
++                            />
++                        );
++
++                    case "login-page-expired.ftl":
++                        return (
++                            <LoginPageExpired
++                                doUseDefaultCss={false}
++                                {...{ kcContext, i18n, classes }}
++                                Template={Template}
++                            />
++                        );
++
++                    case "login-idp-link-confirm.ftl":
++                        return (
++                            <LoginIdpLinkConfirm
++                                doUseDefaultCss={false}
++                                {...{ kcContext, i18n, classes }}
++                                Template={Template}
++                            />
++                        );
++
++                    case "login-idp-link-email.ftl":
++                        return (
++                            <LoginIdpLinkEmail
++                                doUseDefaultCss={false}
++                                {...{ kcContext, i18n, classes }}
++                                Template={Template}
++                            />
++                        );
++
++                    case "error.ftl":
+                         return (
+                             <Error
+                                 doUseDefaultCss={false}
+@@ -115,6 +152,7 @@
+                                 Template={Template}
+                             />
+                         );
++
+                     default:
+                         return (
+                             <DefaultPage
+@@ -133,4 +171,4 @@
+     );
+ }
+ 
+-const classes = {} satisfies { [key in ClassKey]?: string };
++const classes = {} satisfies { [key in ClassKey]?: string };
+\ No newline at end of file
+Index: src/login/pages/Register.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import type { JSX } from \"keycloakify/tools/JSX\";\nimport { useState } from \"react\";\nimport type { LazyOrNot } from \"keycloakify/tools/LazyOrNot\";\nimport { kcSanitize } from \"keycloakify/lib/kcSanitize\";\nimport { getKcClsx, type KcClsx } from \"keycloakify/login/lib/kcClsx\";\nimport { clsx } from \"keycloakify/tools/clsx\";\nimport type { UserProfileFormFieldsProps } from \"keycloakify/login/UserProfileFormFieldsProps\";\nimport type { PageProps } from \"keycloakify/login/pages/PageProps\";\nimport type { KcContext } from \"../KcContext\";\nimport type { I18n } from \"../i18n\";\nimport { Button } from \"@/components/ui/button\";\n\ntype RegisterProps = PageProps<Extract<KcContext, { pageId: \"register.ftl\" }>, I18n> & {\n    UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;\n    doMakeUserConfirmPassword: boolean;\n};\nexport default function Register(props: RegisterProps) {\n    const { kcContext, i18n, doUseDefaultCss, Template, classes, UserProfileFormFields, doMakeUserConfirmPassword } = props;\n    const { kcClsx } = getKcClsx({\n        doUseDefaultCss,\n        classes\n    });\n\n    const { messageHeader, url, social, messagesPerField, recaptchaRequired, recaptchaVisible, recaptchaSiteKey, recaptchaAction, termsAcceptanceRequired } =\n        kcContext;\n    const { msg, msgStr, advancedMsg } = i18n;\n    const [isFormSubmittable, setIsFormSubmittable] = useState(false);\n    const [areTermsAccepted, setAreTermsAccepted] = useState(false);\n\n    return (\n        <Template\n            kcContext={kcContext}\n            i18n={i18n}\n            doUseDefaultCss={doUseDefaultCss}\n            classes={classes}\n            socialProvidersNode={\n                <>\n                    {social?.providers !== undefined && social.providers.length !== 0 && (\n                        <>\n                            <div className=\"text-center text-sm text-muted-foreground mb-4\">Or Sign in with</div>\n                            <div id=\"kc-social-providers\" className=\"flex gap-2 justify-center flex-wrap mb-4\">\n                                {social.providers.map(p =>\n                                (\n                                    <a\n                                        key={p.alias}\n                                        id={`social-${p.alias}`}\n                                        className=\"flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors\"\n                                        href={p.loginUrl}\n                                    >\n                                        {p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden=\"true\"></i>}\n                                        <span\n                                            className={clsx(\"text-sm\", p.iconClasses && \"ml-1\")}\n                                            dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}\n                                        ></span>\n                                    </a>)\n\n                                )}\n                            </div>\n                        </>\n                    )}\n                </>\n            }\n            headerNode={messageHeader !== undefined ? advancedMsg(messageHeader) : msg(\"registerTitle\")}\n            displayMessage={messagesPerField.exists(\"global\")}\n            displayRequiredFields\n        >\n            <form id=\"kc-register-form\" className='space-y-4' action={url.registrationAction} method=\"post\">\n                <UserProfileFormFields\n                    kcContext={kcContext}\n                    i18n={i18n}\n                    kcClsx={kcClsx}\n                    onIsFormSubmittableValueChange={setIsFormSubmittable}\n                    doMakeUserConfirmPassword={doMakeUserConfirmPassword}\n                />\n                {termsAcceptanceRequired && (\n                    <TermsAcceptance\n                        i18n={i18n}\n                        kcClsx={kcClsx}\n                        messagesPerField={messagesPerField}\n                        areTermsAccepted={areTermsAccepted}\n                        onAreTermsAcceptedValueChange={setAreTermsAccepted}\n                    />\n                )}\n                {recaptchaRequired && (recaptchaVisible || recaptchaAction === undefined) && (\n                    <div className=\"form-group\">\n                        <div className=''>\n                            <div className=\"g-recaptcha\" data-size=\"compact\" data-sitekey={recaptchaSiteKey} data-action={recaptchaAction}></div>\n                        </div>\n                    </div>\n                )}\n                <div className='space-y-4'>\n                    <div id=\"kc-form-options\" >\n                        <div className='ml-auto max-w-fit'>\n                            <span>\n                                <a className=\"text-sm text-primary hover:underline\" href={url.loginUrl}>{msg(\"backToLogin\")}</a>\n                            </span>\n                        </div>\n                    </div>\n                    {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (\n                        <div id=\"kc-form-buttons\" >\n                            <Button\n                                data-sitekey={recaptchaSiteKey}\n                                data-callback={() => {\n                                    (document.getElementById(\"kc-register-form\") as HTMLFormElement).submit();\n                                }}\n                                data-action={recaptchaAction}\n                                type=\"submit\"\n                            >\n                                {msg(\"doRegister\")}\n                            </Button>\n                        </div>\n                    ) : (\n                        <div id=\"kc-form-buttons\" >\n                            <Button\n                                disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}\n                                className='w-full'\n                                type=\"submit\"\n                                value={msgStr(\"doRegister\")}\n                            >\n                                {msg(\"doRegister\")}\n                            </Button>\n                        </div>\n                    )}\n                </div>\n            </form>\n        </Template>\n    );\n}\n\nfunction TermsAcceptance(props: {\n    i18n: I18n;\n    kcClsx: KcClsx;\n    messagesPerField: Pick<KcContext[\"messagesPerField\"], \"existsError\" | \"get\">;\n    areTermsAccepted: boolean;\n    onAreTermsAcceptedValueChange: (areTermsAccepted: boolean) => void;\n}) {\n    const { i18n, kcClsx, messagesPerField, areTermsAccepted, onAreTermsAcceptedValueChange } = props;\n\n    const { msg } = i18n;\n\n    return (\n        <div className=\"space-y-2 py-2\">\n            <div>\n                <div className='flex items-center gap-4'>\n                    {msg(\"termsTitle\")}\n                    <div id=\"kc-registration-terms-text\" className='text-primary hover:underline'>{msg(\"termsText\")}</div>\n                </div>\n            </div>\n            <div >\n                <div className='flex items-center gap-2'>\n                    <input\n                        type=\"checkbox\"\n                        id=\"termsAccepted\"\n                        name=\"termsAccepted\"\n                        className={kcClsx(\"kcCheckboxInputClass\")}\n                        checked={areTermsAccepted}\n                        onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}\n                        aria-invalid={messagesPerField.existsError(\"termsAccepted\")}\n                    />\n                    <label htmlFor=\"termsAccepted\" className={kcClsx(\"kcLabelClass\")}>\n                        {msg(\"acceptTerms\")}\n                    </label>\n                </div>\n                {messagesPerField.existsError(\"termsAccepted\") && (\n                    <div className={kcClsx(\"kcLabelWrapperClass\")}>\n                        <span\n                            id=\"input-error-terms-accepted\"\n                            className={kcClsx(\"kcInputErrorMessageClass\")}\n                            aria-live=\"polite\"\n                            dangerouslySetInnerHTML={{\n                                __html: kcSanitize(messagesPerField.get(\"termsAccepted\"))\n                            }}\n                        />\n                    </div>\n                )}\n            </div>\n        </div>\n    );\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/login/pages/Register.tsx b/src/login/pages/Register.tsx
+--- a/src/login/pages/Register.tsx	(revision bbe157698bbbcd417eb6041e975b77868e22a293)
++++ b/src/login/pages/Register.tsx	(date 1752862097576)
+@@ -9,11 +9,15 @@
+ import type { KcContext } from "../KcContext";
+ import type { I18n } from "../i18n";
+ import { Button } from "@/components/ui/button";
++import { Label } from "@/components/ui/label";
++import { cn } from "@/lib/utils";
++import { SocialIcon } from "../components/SocialIcon";
+ 
+ type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
+     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
+     doMakeUserConfirmPassword: boolean;
+ };
++
+ export default function Register(props: RegisterProps) {
+     const { kcContext, i18n, doUseDefaultCss, Template, classes, UserProfileFormFields, doMakeUserConfirmPassword } = props;
+     const { kcClsx } = getKcClsx({
+@@ -36,35 +40,40 @@
+             socialProvidersNode={
+                 <>
+                     {social?.providers !== undefined && social.providers.length !== 0 && (
+-                        <>
+-                            <div className="text-center text-sm text-muted-foreground mb-4">Or Sign in with</div>
+-                            <div id="kc-social-providers" className="flex gap-2 justify-center flex-wrap mb-4">
+-                                {social.providers.map(p =>
+-                                (
+-                                    <a
+-                                        key={p.alias}
+-                                        id={`social-${p.alias}`}
+-                                        className="flex items-center flex-1 justify-center gap-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition-colors"
+-                                        href={p.loginUrl}
+-                                    >
+-                                        {p.iconClasses && <i className={clsx(p.iconClasses)} aria-hidden="true"></i>}
+-                                        <span
+-                                            className={clsx("text-sm", p.iconClasses && "ml-1")}
+-                                            dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
+-                                        ></span>
+-                                    </a>)
+-
+-                                )}
+-                            </div>
+-                        </>
++                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
++                            {social.providers.map(p => (
++                                <a
++                                    key={p.alias}
++                                    id={`social-${p.alias}`}
++                                    className="flex items-center justify-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-2 border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-slate-300/60 dark:hover:border-slate-600/60 transition-all duration-200 group shadow-sm hover:shadow-md"
++                                    href={p.loginUrl}
++                                >
++                                    <SocialIcon
++                                        provider={p.alias}
++                                        className="h-5 w-5 flex-shrink-0"
++                                    />
++                                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors text-sm sm:text-base">
++                                        {p.alias === 'google' ? 'Google' :
++                                            p.alias === 'apple' ? 'Apple' :
++                                                p.alias === 'microsoft' ? 'Microsoft' :
++                                                    p.alias === 'facebook' ? 'Facebook' :
++                                                        p.alias === 'github' ? 'GitHub' :
++                                                            p.alias === 'twitter' || p.alias === 'x' ? 'X' :
++                                                                p.alias === 'linkedin' ? 'LinkedIn' :
++                                                                    p.alias === 'discord' ? 'Discord' :
++                                                                        p.displayName || p.alias}
++                                    </span>
++                                </a>
++                            ))}
++                        </div>
+                     )}
+                 </>
+             }
+-            headerNode={messageHeader !== undefined ? advancedMsg(messageHeader) : msg("registerTitle")}
++            headerNode={messageHeader !== undefined ? advancedMsg(messageHeader) : "Create your account"}
+             displayMessage={messagesPerField.exists("global")}
+             displayRequiredFields
+         >
+-            <form id="kc-register-form" className='space-y-4' action={url.registrationAction} method="post">
++            <form id="kc-register-form" className="space-y-5" action={url.registrationAction} method="post">
+                 <UserProfileFormFields
+                     kcContext={kcContext}
+                     i18n={i18n}
+@@ -72,6 +81,7 @@
+                     onIsFormSubmittableValueChange={setIsFormSubmittable}
+                     doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                 />
++
+                 {termsAcceptanceRequired && (
+                     <TermsAcceptance
+                         i18n={i18n}
+@@ -81,46 +91,56 @@
+                         onAreTermsAcceptedValueChange={setAreTermsAccepted}
+                     />
+                 )}
++
+                 {recaptchaRequired && (recaptchaVisible || recaptchaAction === undefined) && (
+-                    <div className="form-group">
+-                        <div className=''>
+-                            <div className="g-recaptcha" data-size="compact" data-sitekey={recaptchaSiteKey} data-action={recaptchaAction}></div>
+-                        </div>
++                    <div className="flex justify-center">
++                        <div className="g-recaptcha" data-size="compact" data-sitekey={recaptchaSiteKey} data-action={recaptchaAction}></div>
+                     </div>
+                 )}
+-                <div className='space-y-4'>
+-                    <div id="kc-form-options" >
+-                        <div className='ml-auto max-w-fit'>
+-                            <span>
+-                                <a className="text-sm text-primary hover:underline" href={url.loginUrl}>{msg("backToLogin")}</a>
+-                            </span>
+-                        </div>
+-                    </div>
++
++                <div className="space-y-3 pt-2">
+                     {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (
+-                        <div id="kc-form-buttons" >
+-                            <Button
+-                                data-sitekey={recaptchaSiteKey}
+-                                data-callback={() => {
+-                                    (document.getElementById("kc-register-form") as HTMLFormElement).submit();
+-                                }}
+-                                data-action={recaptchaAction}
+-                                type="submit"
+-                            >
+-                                {msg("doRegister")}
+-                            </Button>
+-                        </div>
++                        <Button
++                            data-sitekey={recaptchaSiteKey}
++                            data-callback={() => {
++                                (document.getElementById("kc-register-form") as HTMLFormElement).submit();
++                            }}
++                            data-action={recaptchaAction}
++                            type="submit"
++                            className={cn(
++                                "w-full h-12 text-base font-semibold rounded-xl",
++                                "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700",
++                                "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
++                            )}
++                        >
++                            {msg("doRegister")}
++                        </Button>
+                     ) : (
+-                        <div id="kc-form-buttons" >
+-                            <Button
+-                                disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
+-                                className='w-full'
+-                                type="submit"
+-                                value={msgStr("doRegister")}
+-                            >
+-                                {msg("doRegister")}
+-                            </Button>
+-                        </div>
++                        <Button
++                            disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
++                            className={cn(
++                                "w-full h-12 text-base font-semibold rounded-xl",
++                                "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700",
++                                "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200",
++                                (!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)) && "opacity-50 cursor-not-allowed transform-none"
++                            )}
++                            type="submit"
++                            value={msgStr("doRegister")}
++                        >
++                            {msg("doRegister")}
++                        </Button>
+                     )}
++
++                    <Button
++                        variant="outline"
++                        className="w-full h-12 text-base font-medium rounded-xl border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200"
++                        onClick={(e) => {
++                            e.preventDefault();
++                            window.location.href = url.loginUrl;
++                        }}
++                    >
++                        {msg("backToLogin")}
++                    </Button>
+                 </div>
+             </form>
+         </Template>
+@@ -134,46 +154,55 @@
+     areTermsAccepted: boolean;
+     onAreTermsAcceptedValueChange: (areTermsAccepted: boolean) => void;
+ }) {
+-    const { i18n, kcClsx, messagesPerField, areTermsAccepted, onAreTermsAcceptedValueChange } = props;
+-
++    const { i18n, messagesPerField, areTermsAccepted, onAreTermsAcceptedValueChange } = props;
+     const { msg } = i18n;
+ 
+     return (
+-        <div className="space-y-2 py-2">
+-            <div>
+-                <div className='flex items-center gap-4'>
+-                    {msg("termsTitle")}
+-                    <div id="kc-registration-terms-text" className='text-primary hover:underline'>{msg("termsText")}</div>
+-                </div>
+-            </div>
+-            <div >
+-                <div className='flex items-center gap-2'>
+-                    <input
+-                        type="checkbox"
+-                        id="termsAccepted"
+-                        name="termsAccepted"
+-                        className={kcClsx("kcCheckboxInputClass")}
+-                        checked={areTermsAccepted}
+-                        onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}
+-                        aria-invalid={messagesPerField.existsError("termsAccepted")}
+-                    />
+-                    <label htmlFor="termsAccepted" className={kcClsx("kcLabelClass")}>
+-                        {msg("acceptTerms")}
+-                    </label>
++        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
++            <div className="flex items-start gap-3">
++                <input
++                    type="checkbox"
++                    id="termsAccepted"
++                    name="termsAccepted"
++                    className="mt-1 h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600"
++                    checked={areTermsAccepted}
++                    onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}
++                    aria-invalid={messagesPerField.existsError("termsAccepted")}
++                />
++                <div className="flex-1">
++                    <Label htmlFor="termsAccepted" className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
++                        I agree to the{" "}
++                        <a
++                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
++                            href="#"
++                            onClick={(e) => { e.preventDefault(); /* Open terms modal/page */ }}
++                        >
++                            Terms of Service
++                        </a>{" "}
++                        and{" "}
++                        <a
++                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
++                            href="#"
++                            onClick={(e) => { e.preventDefault(); /* Open privacy modal/page */ }}
++                        >
++                            Privacy Policy
++                        </a>
++                    </Label>
+                 </div>
+-                {messagesPerField.existsError("termsAccepted") && (
+-                    <div className={kcClsx("kcLabelWrapperClass")}>
+-                        <span
+-                            id="input-error-terms-accepted"
+-                            className={kcClsx("kcInputErrorMessageClass")}
+-                            aria-live="polite"
+-                            dangerouslySetInnerHTML={{
+-                                __html: kcSanitize(messagesPerField.get("termsAccepted"))
+-                            }}
+-                        />
+-                    </div>
+-                )}
+-            </div>
++            </div>
++            {messagesPerField.existsError("termsAccepted") && (
++                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
++                    <svg className="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
++                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
++                    </svg>
++                    <span
++                        className="text-sm text-red-600 dark:text-red-400"
++                        dangerouslySetInnerHTML={{
++                            __html: kcSanitize(messagesPerField.get("termsAccepted"))
++                        }}
++                    />
++                </div>
++            )}
+         </div>
+     );
+-}
++}
+\ No newline at end of file

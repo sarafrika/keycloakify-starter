@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="workflow" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/github-workflow-build-script" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mwash-fred&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sarafrika/keycloakify-starter.git&quot;,
+    &quot;accountId&quot;: &quot;97c8a00c-b677-47c5-b910-e85894e4ec04&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;sarafrika&quot;,
+    &quot;repository&quot;: &quot;keycloakify-starter&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2xAgJAgt9vJvzLlDPUwELoYOL4o" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/willy/WebstormProjects/elimika-ui",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "npm.storybook.executor": "Debug",
+    "prettierjs.PrettierConfiguration.Package": "/home/willy/WebstormProjects/keycloakify-starter/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/home/willy/WebstormProjects/keycloakify-starter/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="storybook" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="storybook" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.storybook" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.26927.40" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="" />
+      <created>1747386219083</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747386219083</updated>
+      <workItem from="1747386221398" duration="2619000" />
+      <workItem from="1747475367867" duration="227000" />
+      <workItem from="1747475737064" duration="196000" />
+      <workItem from="1747655811504" duration="1211000" />
+      <workItem from="1747677251346" duration="38000" />
+      <workItem from="1747678358179" duration="961000" />
+      <workItem from="1748083220216" duration="237000" />
+      <workItem from="1748084433688" duration="511000" />
+      <workItem from="1748342678644" duration="2698000" />
+      <workItem from="1748936546107" duration="52000" />
+      <workItem from="1749664691228" duration="61000" />
+      <workItem from="1750985399511" duration="1571000" />
+      <workItem from="1751276304668" duration="72000" />
+      <workItem from="1752751153986" duration="8890000" />
+      <workItem from="1752857322495" duration="3554000" />
+      <workItem from="1752861470772" duration="520000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix: Naming the theme as Sarafrika">
+      <option name="closed" value="true" />
+      <created>1747656395595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747656395595</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: Creating git workflow that builds themes based on keycloak customisations made through kecloakify">
+      <option name="closed" value="true" />
+      <created>1748343906383</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748343906383</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix: Creating git workflow that builds themes based on keycloak customisations made through kecloakify">
+      <option name="closed" value="true" />
+      <created>1748344398254</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748344398254</updated>
+    </task>
+    <task id="LOCAL-00004" summary="```&#10;feat: Implement consistent Keycloak theme with Shadcn UI&#10;&#10;This commit introduces a comprehensive re-theming of Keycloak login and registration pages using Shadcn UI components and Tailwind CSS, aligning with a provided design inspiration.&#10;&#10;Key changes include:&#10;&#10;- **Centralized Template (`Template.tsx`):**&#10;  - Implemented a universal, responsive card-based layout with a frosted glass effect for all Keycloak pages.&#10;  - Integrated dynamic header rendering based on the specific form.&#10;  - Added a global background image.&#10;  - Ensured basic dark mode compatibility for core elements and messages.&#10;  - Placed the brand logo consistently at the top of the form card.&#10;&#10;- **Refactored Pages for Consistency:**&#10;  - **`Login.tsx`:** Updated input fields with icons and placeholders, restyled the login button (&quot;Get Started&quot;), and adjusted social provider layout to match the inspiration.&#10;  - **`Error.tsx`:** Styled error messages and transformed the &quot;Back to Application&quot; link into a primary button.&#10;  - **`LoginOauthGrant.tsx`:** Enhanced styling for consent request details and action buttons.&#10;  - **`LoginPassword.tsx`:** Applied consistent input field styling with icons and updated button appearance.&#10;  - **`LoginResetPassword.tsx`:** Standardized input field styling, converted the &quot;Back to Login&quot; link into a secondary button.&#10;  - **`LoginUpdatePassword.tsx`:** Applied consistent styling for new and confirm password fields, and updated button styles.&#10;  - **`LoginUpdateProfile.tsx`:** Ensured the profile update form adheres to the new design, including button styling.&#10;  - **`LoginUsername.tsx`:** Standardized username/email input with icons and styling for the remember me checkbox.&#10;  - **`LoginVerifyEmail.tsx`:** Updated instructional text styling and the &quot;Click Here&quot; link.&#10;  - **`Register.tsx`:** Applied consistent input styling for user profile fields, re-styled social providers, and updated terms acceptance checkbox.&#10;  - **`LoginIdpLinkConfirm.tsx`:** Styled the confirmation message and action buttons for IDP linking.&#10;  - **`LoginIdpLinkEmail.tsx`:** Styled the email linking instructions, username input, and action buttons.&#10;&#10;- **Improved UX/UI:**&#10;  - Standardized font sizes, boldness, and alignment for headers and text.&#10;  - Ensured interactive elements (buttons, links) are clearly styled and responsive.&#10;  - Addressed various TypeScript and ESLint warnings to improve code quality.&#10;&#10;This extensive refactoring provides a modern, cohesive, and user-friendly experience across all Keycloak authentication flows.&#10;```">
+      <option name="closed" value="true" />
+      <created>1752759852580</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752759852580</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards.">
+      <option name="closed" value="true" />
+      <created>1752861758895</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1752861758895</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: Naming the theme as Sarafrika" />
+    <MESSAGE value="fix: Creating git workflow that builds themes based on keycloak customisations made through kecloakify" />
+    <MESSAGE value="```&#10;feat: Implement consistent Keycloak theme with Shadcn UI&#10;&#10;This commit introduces a comprehensive re-theming of Keycloak login and registration pages using Shadcn UI components and Tailwind CSS, aligning with a provided design inspiration.&#10;&#10;Key changes include:&#10;&#10;- **Centralized Template (`Template.tsx`):**&#10;  - Implemented a universal, responsive card-based layout with a frosted glass effect for all Keycloak pages.&#10;  - Integrated dynamic header rendering based on the specific form.&#10;  - Added a global background image.&#10;  - Ensured basic dark mode compatibility for core elements and messages.&#10;  - Placed the brand logo consistently at the top of the form card.&#10;&#10;- **Refactored Pages for Consistency:**&#10;  - **`Login.tsx`:** Updated input fields with icons and placeholders, restyled the login button (&quot;Get Started&quot;), and adjusted social provider layout to match the inspiration.&#10;  - **`Error.tsx`:** Styled error messages and transformed the &quot;Back to Application&quot; link into a primary button.&#10;  - **`LoginOauthGrant.tsx`:** Enhanced styling for consent request details and action buttons.&#10;  - **`LoginPassword.tsx`:** Applied consistent input field styling with icons and updated button appearance.&#10;  - **`LoginResetPassword.tsx`:** Standardized input field styling, converted the &quot;Back to Login&quot; link into a secondary button.&#10;  - **`LoginUpdatePassword.tsx`:** Applied consistent styling for new and confirm password fields, and updated button styles.&#10;  - **`LoginUpdateProfile.tsx`:** Ensured the profile update form adheres to the new design, including button styling.&#10;  - **`LoginUsername.tsx`:** Standardized username/email input with icons and styling for the remember me checkbox.&#10;  - **`LoginVerifyEmail.tsx`:** Updated instructional text styling and the &quot;Click Here&quot; link.&#10;  - **`Register.tsx`:** Applied consistent input styling for user profile fields, re-styled social providers, and updated terms acceptance checkbox.&#10;  - **`LoginIdpLinkConfirm.tsx`:** Styled the confirmation message and action buttons for IDP linking.&#10;  - **`LoginIdpLinkEmail.tsx`:** Styled the email linking instructions, username input, and action buttons.&#10;&#10;- **Improved UX/UI:**&#10;  - Standardized font sizes, boldness, and alignment for headers and text.&#10;  - Ensured interactive elements (buttons, links) are clearly styled and responsive.&#10;  - Addressed various TypeScript and ESLint warnings to improve code quality.&#10;&#10;This extensive refactoring provides a modern, cohesive, and user-friendly experience across all Keycloak authentication flows.&#10;```" />
+    <MESSAGE value="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards." />
+  </component>
+</project>
