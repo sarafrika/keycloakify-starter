@@ -212,7 +212,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                     </a>
                                 )}
                                 <a href="https://support.google.com/accounts" target="_blank" rel="noreferrer" className="hover:text-slate-700 dark:hover:text-slate-200">
-                                    {msg("needHelp") || "Need help?"}
+                                    Need help?
                                 </a>
                             </div>
                         </div>
