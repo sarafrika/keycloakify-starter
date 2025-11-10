@@ -12,6 +12,16 @@ cd keycloakify-starter
 yarn install # Or use an other package manager, just be sure to delete the yarn.lock if you use another package manager.
 ```
 
+# Running unit tests
+
+Vitest and Testing Library are configured for component-focused specs (see `src/components/SocialIcon.test.tsx` for a template).
+
+```bash
+yarn test          # single run
+yarn test:watch    # watch mode
+yarn test:coverage # generate v8 coverage reports
+```
+
 # Testing the theme locally
 
 [Documentation](https://docs.keycloakify.dev/testing-your-theme)
