@@ -54,18 +54,13 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     }
 
     return (
-        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-3 py-10 text-slate-900 dark:from-slate-950 dark:via-slate-950 dark:to-slate-950 dark:text-slate-100">
-            {/* Background orbits */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-52 left-1/2 h-[440px] w-[440px] -translate-x-1/2 rounded-full border border-white/70 opacity-60" />
-                <div className="absolute -top-28 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full border border-white/50 opacity-35" />
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-slate-900" />
-                <div className="absolute -bottom-20 left-10 h-56 w-56 rounded-full bg-white/70 blur-3xl dark:bg-slate-900/60" />
-                <div className="absolute -top-10 right-4 h-48 w-48 rounded-full bg-blue-100/50 blur-2xl dark:bg-blue-500/20" />
+        <div className="relative flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,_#ffffff,_#eef2ff)] px-4 py-12 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+            <div className="pointer-events-none absolute inset-0 opacity-30">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%22100%25%22 height=%22100%25%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle cx=%220%22 cy=%220%22 r=%221%22 fill=%22%23dbeafe%22 fill-opacity=%220.35%22/%3E%3C/svg%3E')]" />
             </div>
 
-            <div className="relative z-10 w-full max-w-[340px] space-y-4">
-                <div className="flex items-center justify-between text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-slate-500 dark:text-slate-400">
+            <div className="relative z-10 w-full max-w-[360px] space-y-4">
+                <div className="flex items-center justify-between text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
                     <div className="flex items-center gap-2">
                         <div className="flex h-7 w-7 items-center justify-center rounded-2xl bg-white/80 text-slate-700 shadow-inner dark:bg-slate-900/60 dark:text-slate-100">
                             <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden="true">
@@ -109,9 +104,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     )}
                 </div>
 
-                <Card className="rounded-[22px] border border-white/60 bg-white/85 shadow-[0_18px_50px_rgba(15,23,42,0.14)] backdrop-blur-3xl dark:border-slate-800/70 dark:bg-slate-900/80">
-                    <CardHeader className="px-7 pb-3 pt-7">
-                        <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-lg shadow-blue-200/60 dark:bg-slate-900 dark:text-slate-100">
+                <Card className="rounded-[20px] border border-slate-100 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900/90">
+                    <CardHeader className="px-7 pb-3 pt-6">
+                        <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-900">
                             <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
                                 <path
                                     d="M12 3l7 4v10l-7 4-7-4V7z"
@@ -125,14 +120,14 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             </svg>
                         </div>
                         <div className="space-y-1 text-center">
-                            <CardTitle className="text-[1.4rem] font-semibold tracking-tight text-slate-900 dark:text-white">
+                            <CardTitle className="text-[1.35rem] font-semibold tracking-tight text-slate-900 dark:text-white">
                                 {headerNode ?? msg("loginTitle", realm.displayName)}
                             </CardTitle>
-                            <p className="text-[0.7rem] text-slate-500 dark:text-slate-400">{subtitleCopy}</p>
+                            <p className="text-[0.72rem] text-slate-500 dark:text-slate-400">{subtitleCopy}</p>
                         </div>
                     </CardHeader>
 
-                    <CardContent className="px-7 pb-4 pt-1">
+                    <CardContent className="px-7 pb-3 pt-1">
                         {/* Messages */}
                         {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
                             <div
@@ -172,14 +167,14 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         )}
                     </CardContent>
 
-                    <CardFooter className="px-7 pb-7 pt-3">
+                    <CardFooter className="px-7 pb-6 pt-2">
                         {/* Social Providers */}
                         {socialProvidersNode && (
-                            <div className="w-full space-y-4">
-                                <div className="flex items-center justify-center gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">
-                                    <span className="h-px w-10 bg-slate-200 dark:bg-slate-700" />
-                                    {msg("doLogIn") || "Sign in"}
-                                    <span className="h-px w-10 bg-slate-200 dark:bg-slate-700" />
+                            <div className="w-full space-y-3">
+                                <div className="flex items-center justify-center gap-2 text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-slate-400 dark:text-slate-500">
+                                    <span className="h-px w-8 bg-slate-200 dark:bg-slate-700" />
+                                    Or continue
+                                    <span className="h-px w-8 bg-slate-200 dark:bg-slate-700" />
                                 </div>
                                 {socialProvidersNode}
                             </div>
@@ -198,6 +193,15 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         )}
                     </CardFooter>
                 </Card>
+
+                <div className="rounded-2xl border border-slate-100 bg-white/80 px-5 py-4 text-sm text-slate-500 shadow-sm shadow-slate-200/40 backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/70 dark:text-slate-300">
+                    <p className="font-semibold text-slate-600 dark:text-slate-200">Getting started</p>
+                    <ul className="mt-2 space-y-1.5 text-[0.8rem] leading-relaxed">
+                        <li>1. Sign in with your Sarafrika email.</li>
+                        <li>2. Review realm policies without leaving the flow.</li>
+                        <li>3. Invite teammates once authentication succeeds.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
