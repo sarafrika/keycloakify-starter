@@ -1,4 +1,11 @@
-name: deploy.yaml
+name: Deploy Keycloak Theme
+
 on:
+  workflow_dispatch:
 
 jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        run: echo "Deployment workflow placeholder – implement when ready."
