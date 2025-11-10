@@ -30,6 +30,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { msg, msgStr, currentLanguage, enabledLanguages } = i18n;
 
     const { realm, auth, url, message, isAppInitiatedAction } = kcContext;
+    const realmLabel = realm.displayName ?? "your account";
+    const subtitleCopy = `Secure access to ${realmLabel}`;
 
     useEffect(() => {
         document.title = documentTitle ?? msgStr("loginTitle", realm.displayName);
@@ -52,83 +54,96 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     }
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-            {/* Language Selector */}
-            <div className="absolute top-5 right-5 z-10">
-                {enabledLanguages.length > 1 && (
-                    <Select
-                        value={currentLanguage.languageTag}
-                        onValueChange={value => {
-                            const next = enabledLanguages.find(lang => lang.languageTag === value)?.href;
-                            window.location.href = next ?? window.location.href;
-                        }}
-                    >
-                        <SelectTrigger
-                            tabIndex={1}
-                            id="kc-current-locale-link"
-                            aria-label={msgStr("languages")}
-                            className="w-auto bg-white/80 backdrop-blur-sm border-white/20 shadow-lg"
-                        >
-                            {currentLanguage.label}
-                        </SelectTrigger>
-                        <SelectContent className="bg-white/95 backdrop-blur-sm border-white/20">
-                            {enabledLanguages.map(({ languageTag, label, href }, index) => (
-                                <SelectItem value={languageTag} key={languageTag}>
-                                    <a id={`language-${index + 1}`} href={href}>
-                                        {label}
-                                    </a>
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                )}
+        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-sky-100 via-white to-white px-4 py-12 text-slate-900 dark:from-slate-950 dark:via-slate-950 dark:to-slate-950 dark:text-slate-100">
+            {/* Background orbits */}
+            <div className="pointer-events-none absolute inset-0">
+                <div className="absolute -top-48 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full border border-white/60 opacity-70" />
+                <div className="absolute -top-16 left-1/2 h-[640px] w-[640px] -translate-x-1/2 rounded-full border border-white/50 opacity-40" />
+                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-slate-900" />
+                <div className="absolute -bottom-24 left-12 h-64 w-64 rounded-full bg-white/70 blur-3xl dark:bg-slate-900/60" />
+                <div className="absolute -top-12 right-0 h-56 w-56 rounded-full bg-blue-100/60 blur-2xl dark:bg-blue-500/20" />
             </div>
 
-            {/* Centered Form */}
-            <div className="w-full max-w-lg mx-auto">
-                <Card className="backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-white/20 dark:border-slate-700/50 shadow-2xl rounded-3xl overflow-hidden">
-                    <CardHeader className="text-center pb-6 pt-8 px-8">
-                        {/* Sarafrika Logo */}
-                        <div className="mb-6 flex items-center justify-center">
-                            <div className="flex items-center space-x-3">
-                                {/* Sarafrika Logo Icon */}
-                                <div className="relative">
-                                    <svg width="40" height="40" viewBox="0 0 100 100" className="transform hover:scale-105 transition-transform duration-300">
-                                        <g transform="translate(50,50)">
-                                            <path d="M-8,-25 L-3,-10" stroke="#22c55e" strokeWidth="4" strokeLinecap="round" transform="rotate(0)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#ef4444" strokeWidth="4" strokeLinecap="round" transform="rotate(45)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#f97316" strokeWidth="4" strokeLinecap="round" transform="rotate(90)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#eab308" strokeWidth="4" strokeLinecap="round" transform="rotate(135)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round" transform="rotate(180)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#8b5cf6" strokeWidth="4" strokeLinecap="round" transform="rotate(225)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#ec4899" strokeWidth="4" strokeLinecap="round" transform="rotate(270)" />
-                                            <path d="M-8,-25 L-3,-10" stroke="#06b6d4" strokeWidth="4" strokeLinecap="round" transform="rotate(315)" />
-                                        </g>
-                                    </svg>
-                                </div>
-                                <span className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
-                                    Sarafrika
-                                </span>
-                            </div>
+            <div className="relative z-10 w-full max-w-[420px] space-y-6">
+                <div className="flex items-center justify-between text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">
+                    <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white/80 text-slate-700 shadow-inner dark:bg-slate-900/60 dark:text-slate-100">
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+                                <path
+                                    d="M4 12c2-5.333 5.333-8 10-8s8 2.667 10 8c-2 5.333-5.333 8-10 8s-8-2.667-10-8z"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                />
+                                <circle cx="14" cy="12" r="3" fill="currentColor" />
+                            </svg>
                         </div>
+                        <span className="tracking-[0.4em] text-slate-600 dark:text-slate-200">SARAFRIKA</span>
+                    </div>
 
-                        {/* Header */}
-                        <CardTitle className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-2">{headerNode}</CardTitle>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Access your educational platform</p>
+                    {enabledLanguages.length > 1 && (
+                        <Select
+                            value={currentLanguage.languageTag}
+                            onValueChange={value => {
+                                const next = enabledLanguages.find(lang => lang.languageTag === value)?.href;
+                                window.location.href = next ?? window.location.href;
+                            }}
+                        >
+                            <SelectTrigger
+                                tabIndex={1}
+                                id="kc-current-locale-link"
+                                aria-label={msgStr("languages")}
+                                className="h-9 min-w-[96px] justify-between rounded-full border border-white/50 bg-white/70 px-4 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-slate-600 shadow-sm backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60 dark:text-slate-200"
+                            >
+                                {currentLanguage.label}
+                            </SelectTrigger>
+                            <SelectContent className="rounded-2xl border border-white/60 bg-white/90 shadow-xl backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/90">
+                                {enabledLanguages.map(({ languageTag, label }) => (
+                                    <SelectItem key={languageTag} value={languageTag} className="text-slate-600 dark:text-slate-200">
+                                        {label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    )}
+                </div>
+
+                <Card className="rounded-[28px] border border-white/60 bg-white/80 shadow-[0_25px_70px_rgba(15,23,42,0.18)] backdrop-blur-3xl dark:border-slate-800/70 dark:bg-slate-900/80">
+                    <CardHeader className="px-10 pb-4 pt-10">
+                        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-lg shadow-blue-200/60 dark:bg-slate-900 dark:text-slate-100">
+                            <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
+                                <path
+                                    d="M12 3l7 4v10l-7 4-7-4V7z"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.6"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                        <div className="space-y-2 text-center">
+                            <CardTitle className="text-[1.65rem] font-semibold tracking-tight text-slate-900 dark:text-white">
+                                {headerNode ?? msg("loginTitle", realm.displayName)}
+                            </CardTitle>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">{subtitleCopy}</p>
+                        </div>
                     </CardHeader>
 
-                    <CardContent className="px-8 pb-4">
+                    <CardContent className="px-10 pb-6 pt-2">
                         {/* Messages */}
                         {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
                             <div
-                                className={`mb-4 p-4 rounded-lg border-l-4 ${
+                                className={`mb-4 rounded-2xl border px-4 py-3 text-sm leading-relaxed shadow-sm ${
                                     message.type === "error"
-                                        ? "bg-red-50 border-red-400 text-red-800 dark:bg-red-950 dark:border-red-600 dark:text-red-200"
+                                        ? "border-red-200/70 bg-red-50/80 text-red-700 dark:border-red-500/50 dark:bg-red-950/60 dark:text-red-200"
                                         : message.type === "success"
-                                            ? "bg-green-50 border-green-400 text-green-800 dark:bg-green-950 dark:border-green-600 dark:text-green-200"
+                                            ? "border-emerald-200/70 bg-emerald-50/80 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-950/60 dark:text-emerald-200"
                                             : message.type === "warning"
-                                                ? "bg-yellow-50 border-yellow-400 text-yellow-800 dark:bg-yellow-950 dark:border-yellow-600 dark:text-yellow-200"
-                                                : "bg-blue-50 border-blue-400 text-blue-800 dark:bg-blue-950 dark:border-blue-600 dark:text-blue-200"
+                                                ? "border-amber-200/70 bg-amber-50/80 text-amber-700 dark:border-amber-500/50 dark:bg-amber-950/60 dark:text-amber-200"
+                                                : "border-blue-200/70 bg-blue-50/80 text-blue-700 dark:border-blue-500/50 dark:bg-blue-950/60 dark:text-blue-200"
                                 }`}
                             >
                                 <span dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
@@ -149,7 +164,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                         document.forms.namedItem("kc-select-try-another-way-form")?.submit();
                                         return false;
                                     }}
-                                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
+                                    className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                                 >
                                     {msg("doTryAnotherWay")}
                                 </a>
@@ -157,29 +172,26 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         )}
                     </CardContent>
 
-                    <CardFooter className="px-8 pb-8 pt-4">
+                    <CardFooter className="px-10 pb-10 pt-4">
                         {/* Social Providers */}
                         {socialProvidersNode && (
                             <div className="w-full space-y-4">
-                                <div className="relative">
-                                    <div className="absolute inset-0 flex items-center">
-                                        <span className="w-full border-t border-slate-200 dark:border-slate-700" />
-                                    </div>
-                                    <div className="relative flex justify-center text-xs uppercase">
-                                        <span className="bg-white/70 dark:bg-slate-900/70 px-3 text-slate-500 dark:text-slate-400 font-medium">Or continue with</span>
-                                    </div>
+                                <div className="flex items-center justify-center gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">
+                                    <span className="h-px w-12 bg-slate-200 dark:bg-slate-700" />
+                                    {msg("doLogIn") || "Sign in"}
+                                    <span className="h-px w-12 bg-slate-200 dark:bg-slate-700" />
                                 </div>
                                 {socialProvidersNode}
                             </div>
                         )}
 
                         {/* Info */}
-                        {displayInfo && <div className="w-full text-center text-sm text-slate-600 dark:text-slate-400 mt-4">{infoNode}</div>}
+                        {displayInfo && <div className="mt-6 w-full text-center text-sm text-slate-500 dark:text-slate-400">{infoNode}</div>}
 
                         {/* Back to app link */}
                         {isAppInitiatedAction && (
-                            <div className="w-full text-center mt-4">
-                                <a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors" href={url.loginUrl}>
+                            <div className="mt-4 w-full text-center">
+                                <a className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" href={url.loginUrl}>
                                     {msg("backToApplication")}
                                 </a>
                             </div>
