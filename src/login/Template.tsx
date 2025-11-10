@@ -54,21 +54,21 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     }
 
     return (
-        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-sky-100 via-white to-white px-4 py-12 text-slate-900 dark:from-slate-950 dark:via-slate-950 dark:to-slate-950 dark:text-slate-100">
+        <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-3 py-10 text-slate-900 dark:from-slate-950 dark:via-slate-950 dark:to-slate-950 dark:text-slate-100">
             {/* Background orbits */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-48 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full border border-white/60 opacity-70" />
-                <div className="absolute -top-16 left-1/2 h-[640px] w-[640px] -translate-x-1/2 rounded-full border border-white/50 opacity-40" />
-                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-slate-900" />
-                <div className="absolute -bottom-24 left-12 h-64 w-64 rounded-full bg-white/70 blur-3xl dark:bg-slate-900/60" />
-                <div className="absolute -top-12 right-0 h-56 w-56 rounded-full bg-blue-100/60 blur-2xl dark:bg-blue-500/20" />
+                <div className="absolute -top-52 left-1/2 h-[440px] w-[440px] -translate-x-1/2 rounded-full border border-white/70 opacity-60" />
+                <div className="absolute -top-28 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full border border-white/50 opacity-35" />
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-slate-900" />
+                <div className="absolute -bottom-20 left-10 h-56 w-56 rounded-full bg-white/70 blur-3xl dark:bg-slate-900/60" />
+                <div className="absolute -top-10 right-4 h-48 w-48 rounded-full bg-blue-100/50 blur-2xl dark:bg-blue-500/20" />
             </div>
 
-            <div className="relative z-10 w-full max-w-[420px] space-y-6">
-                <div className="flex items-center justify-between text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">
+            <div className="relative z-10 w-full max-w-[360px] space-y-5">
+                <div className="flex items-center justify-between text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-slate-500 dark:text-slate-400">
                     <div className="flex items-center gap-2">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white/80 text-slate-700 shadow-inner dark:bg-slate-900/60 dark:text-slate-100">
-                            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-white/80 text-slate-700 shadow-inner dark:bg-slate-900/60 dark:text-slate-100">
+                            <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
                                 <path
                                     d="M4 12c2-5.333 5.333-8 10-8s8 2.667 10 8c-2 5.333-5.333 8-10 8s-8-2.667-10-8z"
                                     fill="none"
@@ -79,7 +79,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 <circle cx="14" cy="12" r="3" fill="currentColor" />
                             </svg>
                         </div>
-                        <span className="tracking-[0.4em] text-slate-600 dark:text-slate-200">SARAFRIKA</span>
+                        <span className="tracking-[0.35em] text-slate-600 dark:text-slate-200">SARAFRIKA</span>
                     </div>
 
                     {enabledLanguages.length > 1 && (
@@ -94,11 +94,11 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 tabIndex={1}
                                 id="kc-current-locale-link"
                                 aria-label={msgStr("languages")}
-                                className="h-9 min-w-[96px] justify-between rounded-full border border-white/50 bg-white/70 px-4 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-slate-600 shadow-sm backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60 dark:text-slate-200"
+                                className="h-8 min-w-[88px] justify-between rounded-full border border-white/50 bg-white/70 px-3 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-slate-600 shadow-sm backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60 dark:text-slate-200"
                             >
                                 {currentLanguage.label}
                             </SelectTrigger>
-                            <SelectContent className="rounded-2xl border border-white/60 bg-white/90 shadow-xl backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/90">
+                            <SelectContent className="rounded-2xl border border-white/60 bg-white/95 shadow-xl backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/90">
                                 {enabledLanguages.map(({ languageTag, label }) => (
                                     <SelectItem key={languageTag} value={languageTag} className="text-slate-600 dark:text-slate-200">
                                         {label}
@@ -109,10 +109,10 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     )}
                 </div>
 
-                <Card className="rounded-[28px] border border-white/60 bg-white/80 shadow-[0_25px_70px_rgba(15,23,42,0.18)] backdrop-blur-3xl dark:border-slate-800/70 dark:bg-slate-900/80">
-                    <CardHeader className="px-10 pb-4 pt-10">
-                        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-lg shadow-blue-200/60 dark:bg-slate-900 dark:text-slate-100">
-                            <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
+                <Card className="rounded-[24px] border border-white/60 bg-white/85 shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-3xl dark:border-slate-800/70 dark:bg-slate-900/80">
+                    <CardHeader className="px-8 pb-3 pt-8">
+                        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-lg shadow-blue-200/60 dark:bg-slate-900 dark:text-slate-100">
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
                                 <path
                                     d="M12 3l7 4v10l-7 4-7-4V7z"
                                     fill="none"
@@ -124,15 +124,15 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <div className="space-y-2 text-center">
-                            <CardTitle className="text-[1.65rem] font-semibold tracking-tight text-slate-900 dark:text-white">
+                        <div className="space-y-1.5 text-center">
+                            <CardTitle className="text-[1.45rem] font-semibold tracking-tight text-slate-900 dark:text-white">
                                 {headerNode ?? msg("loginTitle", realm.displayName)}
                             </CardTitle>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">{subtitleCopy}</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{subtitleCopy}</p>
                         </div>
                     </CardHeader>
 
-                    <CardContent className="px-10 pb-6 pt-2">
+                    <CardContent className="px-8 pb-5 pt-1">
                         {/* Messages */}
                         {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
                             <div
@@ -172,14 +172,14 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         )}
                     </CardContent>
 
-                    <CardFooter className="px-10 pb-10 pt-4">
+                    <CardFooter className="px-8 pb-8 pt-3">
                         {/* Social Providers */}
                         {socialProvidersNode && (
                             <div className="w-full space-y-4">
                                 <div className="flex items-center justify-center gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">
-                                    <span className="h-px w-12 bg-slate-200 dark:bg-slate-700" />
+                                    <span className="h-px w-10 bg-slate-200 dark:bg-slate-700" />
                                     {msg("doLogIn") || "Sign in"}
-                                    <span className="h-px w-12 bg-slate-200 dark:bg-slate-700" />
+                                    <span className="h-px w-10 bg-slate-200 dark:bg-slate-700" />
                                 </div>
                                 {socialProvidersNode}
                             </div>
