@@ -72,12 +72,12 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             socialProvidersNode={
                 social?.providers !== undefined &&
                 social.providers.length !== 0 && (
-                    <div className="flex flex-wrap justify-center gap-2.5">
+                    <div className="flex flex-wrap justify-center gap-3">
                         {social.providers.map(p => (
                             <a
                                 key={p.alias}
                                 id={`social-${p.alias}`}
-                                className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/85 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 dark:border-slate-700/70 dark:bg-slate-900/60 dark:text-slate-200"
+                                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 dark:border-slate-700/70 dark:bg-slate-900/60 dark:text-slate-200"
                                 href={p.loginUrl}
                                 title={`Continue with ${getProviderLabel(p.alias, p.displayName)}`}
                             >
@@ -98,12 +98,12 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             return true;
                         }}
                         action={url.loginAction}
-                        className="space-y-3"
+                        className="space-y-4"
                         method="post"
                     >
                         {!usernameHidden && (
-                            <div className="space-y-1.5">
-                                <Label htmlFor="username" className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                            <div className="space-y-2">
+                                <Label htmlFor="username" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                                     {msg("username")}
                                 </Label>
                                 <div className="relative">
@@ -122,15 +122,15 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                         placeholder={msgStr("username")}
                                         autoComplete="username"
                                         aria-invalid={messagesPerField.existsError("username", "password")}
-                                        className="h-11 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-4 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
+                                        className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-4 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
                                     />
                                 </div>
                             </div>
                         )}
 
                         {realm.password && (
-                            <div className="space-y-1.5">
-                                <Label htmlFor="password" className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                            <div className="space-y-2">
+                                <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                                     {msg("password")}
                                 </Label>
                                 <div className="relative">
@@ -150,7 +150,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                             placeholder={msgStr("password")}
                                             autoComplete="current-password"
                                             aria-invalid={messagesPerField.existsError("username", "password")}
-                                            className="h-11 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-12 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
+                                            className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-12 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
                                         />
                                     </PasswordWrapper>
                                 </div>
@@ -176,7 +176,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             </div>
                         )}
 
-                        <div className="flex flex-wrap items-center justify-between gap-2.5 text-xs font-medium text-slate-500 dark:text-slate-400">
+                        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500 dark:text-slate-400">
                             {realm.rememberMe && !usernameHidden && (
                                 <label className="inline-flex cursor-pointer items-center gap-2">
                                     <input
@@ -207,7 +207,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 tabIndex={7}
                                 disabled={isLoginButtonDisabled}
                                 className={cn(
-                                    "flex h-10 w-full items-center justify-center rounded-2xl text-xs font-semibold uppercase tracking-[0.35em] text-white shadow-lg transition",
+                                    "flex h-11 w-full items-center justify-center rounded-2xl text-sm font-semibold tracking-wide text-white shadow-lg transition",
                                     "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:-translate-y-0.5 hover:from-blue-600 hover:to-indigo-600",
                                     isLoginButtonDisabled && "opacity-70 hover:translate-y-0"
                                 )}
@@ -217,12 +217,12 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 value={msgStr("doLogIn")}
                             >
                                 {isLoginButtonDisabled ? (
-                                    <div className="flex items-center gap-1.5">
-                                        <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                                    <div className="flex items-center gap-2">
+                                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
                                             <path className="opacity-75" d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                                         </svg>
-                                        <span className="tracking-[0.35em]">Wait</span>
+                                        <span className="text-xs uppercase tracking-[0.3em]">Working…</span>
                                     </div>
                                 ) : (
                                     "Get started"
