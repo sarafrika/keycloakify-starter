@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="feat(emails): Email Templating Beginning">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="225ba86a-eecc-4a8d-976a-bfe4d8691606" name="Changes" comment="feat: enhance Keycloak auth forms with modern Sarafrika design system&#10;&#10;- Transform all authentication forms with beautiful floating label design&#10;- Implement glass morphism effects with backdrop blur and translucent backgrounds&#10;- Add Sarafrika brand gradients (blue-to-purple) for primary actions&#10;- Create comprehensive social auth icons component with proper SVG implementations&#10;- Enhance error states with contextual icons and improved messaging&#10;- Add loading states with spinners and contextual feedback text&#10;&#10;Components updated:&#10;- Login.tsx: Modern welcome flow with enhanced social auth&#10;- Register.tsx: Beautiful registration with terms acceptance UI&#10;- LoginPassword.tsx: Streamlined password entry with floating labels&#10;- LoginUsername.tsx: Enhanced username flow with remember me option&#10;- LoginResetPassword.tsx: Improved password reset experience&#10;- LoginUpdatePassword.tsx: Modern password update with security context&#10;- LoginUpdateProfile.tsx: Profile completion with progress indicators&#10;- LoginVerifyEmail.tsx: Email verification with resend functionality&#10;- LoginPageExpired.tsx: Session expiration with security education&#10;- LoginIdpLinkConfirm.tsx: Account linking confirmation flow&#10;- LoginIdpLinkEmail.tsx: Email-based account linking&#10;- LoginOauthGrant.tsx: OAuth authorization with permission visualization&#10;- Error.tsx: Enhanced error display with helpful messaging&#10;- UserProfileFormFields.tsx: Dynamic form fields with floating labels&#10;- Template.tsx: Complete layout redesign with side panel and branding&#10;&#10;Features added:&#10;- Responsive grid layouts for optimal mobile/desktop experience&#10;- Complete light/dark theme support with smooth transitions&#10;- Context-aware field icons (email, password, user, phone)&#10;- Professional social login buttons with hover animations&#10;- Enhanced accessibility with proper ARIA labels&#10;- Consistent design system with 12px button heights and rounded corners&#10;- Educational content and security tips throughout auth flow&#10;- Progress indicators and contextual help text&#10;&#10;Technical improvements:&#10;- Proper TypeScript typing for all components&#10;- Consistent className patterns using cn() utility&#10;- Enhanced button component with variant system explanation&#10;- Optimized performance with proper key management&#10;- Maintainable code structure with reusable design patterns&#10;&#10;The authentication flow now provides a premium SaaS-quality user experience&#10;while maintaining full Keycloak functionality and security standards.">
+      <change beforePath="$PROJECT_DIR$/src/login/PasswordWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/PasswordWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/pages/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/pages/Register.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +100,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.27812.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.26927.40" />
       </set>
     </attachedChunks>
   </component>
@@ -127,7 +128,6 @@
       <workItem from="1752857322495" duration="3554000" />
       <workItem from="1752861470772" duration="520000" />
       <workItem from="1752862056326" duration="522000" />
-      <workItem from="1755161454805" duration="55000" />
     </task>
     <task id="LOCAL-00001" summary="fix: Naming the theme as Sarafrika">
       <option name="closed" value="true" />
