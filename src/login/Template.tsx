@@ -64,56 +64,37 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 <div className="absolute -top-10 right-4 h-48 w-48 rounded-full bg-blue-100/50 blur-2xl dark:bg-blue-500/20" />
             </div>
 
-            <div className="relative z-10 w-full max-w-[380px] space-y-5">
-                <div className="flex items-center justify-between text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-slate-500 dark:text-slate-400">
-                    <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-white/80 text-slate-700 shadow-inner dark:bg-slate-900/60 dark:text-slate-100">
-                            <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
-                                <path
-                                    d="M4 12c2-5.333 5.333-8 10-8s8 2.667 10 8c-2 5.333-5.333 8-10 8s-8-2.667-10-8z"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                />
-                                <circle cx="14" cy="12" r="3" fill="currentColor" />
-                            </svg>
-                        </div>
-                        <span className="tracking-[0.35em] text-slate-600 dark:text-slate-200">SARAFRIKA</span>
-                    </div>
-                    <div>
-                        {enabledLanguages.length > 1 ? (
-                            <Select
-                                value={currentLanguage.languageTag}
-                                onValueChange={value => {
-                                    const next = enabledLanguages.find(lang => lang.languageTag === value)?.href;
-                                    window.location.href = next ?? window.location.href;
-                                }}
+            <div className="relative z-10 w-full max-w-[360px] space-y-5">
+                {enabledLanguages.length > 1 && (
+                    <div className="flex justify-end">
+                        <Select
+                            value={currentLanguage.languageTag}
+                            onValueChange={value => {
+                                const next = enabledLanguages.find(lang => lang.languageTag === value)?.href;
+                                window.location.href = next ?? window.location.href;
+                            }}
+                        >
+                            <SelectTrigger
+                                tabIndex={1}
+                                id="kc-current-locale-link"
+                                aria-label={msgStr("languages")}
+                                className="h-8 min-w-[88px] justify-between rounded-full border border-white/50 bg-white/80 px-3 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-slate-600 shadow-sm backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60 dark:text-slate-200"
                             >
-                                <SelectTrigger
-                                    tabIndex={1}
-                                    id="kc-current-locale-link"
-                                    aria-label={msgStr("languages")}
-                                    className="h-8 min-w-[88px] justify-between rounded-full border border-white/50 bg-white/80 px-3 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-slate-600 shadow-sm backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60 dark:text-slate-200"
-                                >
-                                    {currentLanguage.label}
-                                </SelectTrigger>
-                                <SelectContent className="rounded-2xl border border-white/60 bg-white/95 shadow-xl backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/90">
-                                    {enabledLanguages.map(({ languageTag, label }) => (
-                                        <SelectItem key={languageTag} value={languageTag} className="text-slate-600 dark:text-slate-200">
-                                            {label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        ) : (
-                            <span className="text-[0.65rem] tracking-[0.2em] text-slate-400">{currentLanguage.label}</span>
-                        )}
+                                {currentLanguage.label}
+                            </SelectTrigger>
+                            <SelectContent className="rounded-2xl border border-white/60 bg-white/95 shadow-xl backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/90">
+                                {enabledLanguages.map(({ languageTag, label }) => (
+                                    <SelectItem key={languageTag} value={languageTag} className="text-slate-600 dark:text-slate-200">
+                                        {label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
-                </div>
+                )}
 
                 <Card className="rounded-[24px] border border-white/60 bg-white/85 shadow-[0_20px_60px_rgba(15,23,42,0.14)] backdrop-blur-3xl dark:border-slate-800/70 dark:bg-slate-900/80">
-                    <CardHeader className="px-9 pb-3 pt-8">
+                    <CardHeader className="px-8 pb-3 pt-8">
                         <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-slate-700 shadow-lg shadow-blue-200/60 dark:bg-slate-900 dark:text-slate-100">
                             <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
                                 <path
@@ -135,7 +116,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         </div>
                     </CardHeader>
 
-                    <CardContent className="px-9 pb-5 pt-1">
+                    <CardContent className="px-8 pb-5 pt-1">
                         {/* Messages */}
                         {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
                             <div
@@ -175,7 +156,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         )}
                     </CardContent>
 
-                    <CardFooter className="px-9 pb-8 pt-3">
+                    <CardFooter className="px-8 pb-8 pt-3">
                         {/* Social Providers */}
                         {socialProvidersNode && (
                             <div className="w-full space-y-4">
