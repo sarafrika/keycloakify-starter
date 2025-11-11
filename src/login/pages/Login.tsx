@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
@@ -18,33 +18,6 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
     const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
-    const getProviderLabel = useMemo(
-        () =>
-            (alias: string, fallback?: string) => {
-                switch (alias.toLowerCase()) {
-                    case "google":
-                        return "Google";
-                    case "apple":
-                        return "Apple";
-                    case "microsoft":
-                        return "Microsoft";
-                    case "facebook":
-                        return "Facebook";
-                    case "github":
-                        return "GitHub";
-                    case "twitter":
-                    case "x":
-                        return "X";
-                    case "linkedin":
-                        return "LinkedIn";
-                    case "discord":
-                        return "Discord";
-                    default:
-                        return fallback ?? alias;
-                }
-            },
-        []
-    );
 
     return (
         <Template
@@ -53,16 +26,16 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
             displayMessage={!messagesPerField.existsError("username", "password")}
-            headerNode={"Sign in with email"}
+            headerNode={"Welcome back"}
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
                 <div className="text-center">
-                    <span className="text-sm text-slate-500 dark:text-slate-400">
+                    <span className="text-slate-600 dark:text-slate-400">
                         {msg("noAccount")}{" "}
                         <a
                             tabIndex={8}
                             href={url.registrationUrl}
-                            className="font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                            className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
                         >
                             {msg("doRegister")}
                         </a>
@@ -70,23 +43,41 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                 </div>
             }
             socialProvidersNode={
-                social?.providers !== undefined &&
-                social.providers.length !== 0 && (
-                    <div className="flex flex-wrap justify-center gap-3">
-                        {social.providers.map(p => (
-                            <a
-                                key={p.alias}
-                                id={`social-${p.alias}`}
-                                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 dark:border-slate-700/70 dark:bg-slate-900/60 dark:text-slate-200"
-                                href={p.loginUrl}
-                                title={`Continue with ${getProviderLabel(p.alias, p.displayName)}`}
-                            >
-                                <SocialIcon provider={p.alias} className="h-5 w-5" />
-                                <span className="sr-only">Continue with {getProviderLabel(p.alias, p.displayName)}</span>
-                            </a>
-                        ))}
-                    </div>
-                )
+                <>
+                    {social?.providers !== undefined && social.providers.length !== 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {social.providers.map(p => (
+                                <a
+                                    key={p.alias}
+                                    id={`social-${p.alias}`}
+                                    className="flex items-center justify-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-2 border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-slate-300/60 dark:hover:border-slate-600/60 transition-all duration-200 group shadow-sm hover:shadow-md"
+                                    href={p.loginUrl}
+                                >
+                                    <SocialIcon provider={p.alias} className="h-5 w-5 flex-shrink-0" />
+                                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors text-sm sm:text-base">
+                                        {p.alias === "google"
+                                            ? "Google"
+                                            : p.alias === "apple"
+                                              ? "Apple"
+                                              : p.alias === "microsoft"
+                                                ? "Microsoft"
+                                                : p.alias === "facebook"
+                                                  ? "Facebook"
+                                                  : p.alias === "github"
+                                                    ? "GitHub"
+                                                    : p.alias === "twitter" || p.alias === "x"
+                                                      ? "X"
+                                                      : p.alias === "linkedin"
+                                                        ? "LinkedIn"
+                                                        : p.alias === "discord"
+                                                          ? "Discord"
+                                                          : p.displayName || p.alias}
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    )}
+                </>
             }
         >
             <div id="kc-form">
@@ -98,69 +89,89 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             return true;
                         }}
                         action={url.loginAction}
-                        className="space-y-4"
+                        className="space-y-5"
                         method="post"
                     >
                         {!usernameHidden && (
-                            <div className="space-y-2">
-                                <Label htmlFor="username" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                                    {msg("username")}
-                                </Label>
-                                <div className="relative">
-                                    <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">
-                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <path d="M2 8a6 6 0 1112 0v2a6 6 0 11-12 0V8z" />
-                                            <path d="M20 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
-                                        </svg>
-                                    </div>
-                                    <Input
-                                        tabIndex={2}
-                                        id="username"
-                                        name="username"
-                                        defaultValue={login.username ?? ""}
-                                        type="text"
-                                        placeholder={msgStr("username")}
-                                        autoComplete="username"
-                                        aria-invalid={messagesPerField.existsError("username", "password")}
-                                        className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-4 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
-                                    />
+                            <div className="relative group">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                    <svg
+                                        className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={1.5}
+                                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                                        />
+                                    </svg>
                                 </div>
+                                <Input
+                                    tabIndex={2}
+                                    id="username"
+                                    name="username"
+                                    defaultValue={login.username ?? ""}
+                                    type="text"
+                                    placeholder="Email address"
+                                    autoFocus
+                                    autoComplete="username"
+                                    aria-invalid={messagesPerField.existsError("username", "password")}
+                                    className="w-full h-14 pl-12 pt-6 pb-2 bg-white/80 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-transparent"
+                                />
+                                <Label
+                                    htmlFor="username"
+                                    className="absolute left-12 top-2 text-xs font-medium text-blue-600 dark:text-blue-400 transition-all duration-200 pointer-events-none"
+                                >
+                                    Email address
+                                </Label>
                             </div>
                         )}
 
                         {realm.password && (
-                            <div className="space-y-2">
-                                <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                                    {msg("password")}
-                                </Label>
-                                <div className="relative">
-                                    <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">
-                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <path d="M6 10V8a6 6 0 1112 0v2" />
-                                            <rect x="5" y="10" width="14" height="10" rx="2" />
-                                            <path d="M12 15v2" />
-                                        </svg>
-                                    </div>
-                                    <PasswordWrapper i18n={i18n} passwordInputId="password">
-                                        <Input
-                                            tabIndex={3}
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            placeholder={msgStr("password")}
-                                            autoComplete="current-password"
-                                            aria-invalid={messagesPerField.existsError("username", "password")}
-                                            className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-12 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
+                            <div className="relative group">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                    <svg
+                                        className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={1.5}
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                                         />
-                                    </PasswordWrapper>
+                                    </svg>
                                 </div>
+                                <PasswordWrapper i18n={i18n} passwordInputId="password">
+                                    <Input
+                                        tabIndex={3}
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Password"
+                                        autoComplete="current-password"
+                                        aria-invalid={messagesPerField.existsError("username", "password")}
+                                        className="w-full h-14 pl-12 pt-6 pb-2 bg-white/80 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-transparent"
+                                    />
+                                </PasswordWrapper>
+                                <Label
+                                    htmlFor="password"
+                                    className="absolute left-12 top-2 text-xs font-medium text-blue-600 dark:text-blue-400 transition-all duration-200 pointer-events-none"
+                                >
+                                    Password
+                                </Label>
                             </div>
                         )}
 
                         {/* Error Messages */}
                         {messagesPerField.existsError("username", "password") && (
-                            <div className="flex items-center gap-2 rounded-2xl border border-red-200/80 bg-red-50/80 px-4 py-3 text-sm text-red-600 dark:border-red-800/70 dark:bg-red-950/60 dark:text-red-300">
-                                <svg className="h-5 w-5 flex-shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
+                                <svg className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -169,6 +180,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                     />
                                 </svg>
                                 <span
+                                    className="text-sm text-red-600 dark:text-red-400"
                                     dangerouslySetInnerHTML={{
                                         __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
                                     }}
@@ -176,40 +188,43 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             </div>
                         )}
 
-                        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500 dark:text-slate-400">
+                        <div className="flex justify-between items-center">
                             {realm.rememberMe && !usernameHidden && (
-                                <label className="inline-flex cursor-pointer items-center gap-2">
+                                <div className="flex items-center space-x-2">
                                     <input
                                         tabIndex={5}
                                         id="rememberMe"
                                         name="rememberMe"
                                         type="checkbox"
-                                        className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-400 dark:border-slate-600 dark:bg-slate-800"
+                                        className="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600"
                                         defaultChecked={!!login.rememberMe}
                                     />
-                                    <span>{msg("rememberMe")}</span>
-                                </label>
+                                    <Label htmlFor="rememberMe" className="text-sm text-slate-600 dark:text-slate-400">
+                                        {msg("rememberMe")}
+                                    </Label>
+                                </div>
                             )}
                             {realm.resetPasswordAllowed && (
                                 <a
                                     tabIndex={6}
                                     href={url.loginResetCredentialsUrl}
-                                    className="font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                                    className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
                                 >
                                     {msg("doForgotPassword")}
                                 </a>
                             )}
                         </div>
 
-                        <div id="kc-form-buttons" className="pt-1">
+                        <div id="kc-form-buttons" className="pt-2">
                             <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                             <Button
                                 tabIndex={7}
                                 disabled={isLoginButtonDisabled}
                                 className={cn(
-                                    "flex h-11 w-full items-center justify-center rounded-2xl text-sm font-semibold tracking-wide text-white shadow-lg transition",
-                                    "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:-translate-y-0.5 hover:from-blue-600 hover:to-indigo-600",
-                                    isLoginButtonDisabled && "opacity-70 hover:translate-y-0"
+                                    "w-full h-12 text-base font-semibold rounded-xl",
+                                    "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
+                                    "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200",
+                                    isLoginButtonDisabled && "opacity-50 cursor-not-allowed transform-none"
                                 )}
                                 name="login"
                                 id="kc-login"
@@ -217,15 +232,19 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 value={msgStr("doLogIn")}
                             >
                                 {isLoginButtonDisabled ? (
-                                    <div className="flex items-center gap-2">
-                                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-                                            <path className="opacity-75" d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                                    <div className="flex items-center justify-center space-x-2">
+                                        <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path
+                                                className="opacity-75"
+                                                fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                            ></path>
                                         </svg>
-                                        <span className="text-xs uppercase tracking-[0.3em]">Working…</span>
+                                        <span>Signing in...</span>
                                     </div>
                                 ) : (
-                                    "Get started"
+                                    "Sign in"
                                 )}
                             </Button>
                         </div>
