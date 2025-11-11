@@ -53,12 +53,12 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
             displayMessage={!messagesPerField.existsError("username", "password")}
-            headerNode={"Sign in"}
+            headerNode={"Sign in with email"}
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
                 <div className="text-center">
                     <span className="text-sm text-slate-500 dark:text-slate-400">
-                        Use your Sarafrika account.{" "}
+                        {msg("noAccount")}{" "}
                         <a
                             tabIndex={8}
                             href={url.registrationUrl}
@@ -72,17 +72,17 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             socialProvidersNode={
                 social?.providers !== undefined &&
                 social.providers.length !== 0 && (
-                    <div className="flex flex-col gap-2.5">
+                    <div className="flex flex-wrap justify-center gap-2.5">
                         {social.providers.map(p => (
                             <a
                                 key={p.alias}
                                 id={`social-${p.alias}`}
-                                className="flex h-10 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white text-sm font-medium text-slate-600 shadow-sm transition hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200"
+                                className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/85 text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 dark:border-slate-700/70 dark:bg-slate-900/60 dark:text-slate-200"
                                 href={p.loginUrl}
                                 title={`Continue with ${getProviderLabel(p.alias, p.displayName)}`}
                             >
-                                <SocialIcon provider={p.alias} className="h-4 w-4" />
-                                <span>Continue with {getProviderLabel(p.alias, p.displayName)}</span>
+                                <SocialIcon provider={p.alias} className="h-5 w-5" />
+                                <span className="sr-only">Continue with {getProviderLabel(p.alias, p.displayName)}</span>
                             </a>
                         ))}
                     </div>
@@ -103,39 +103,54 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                     >
                         {!usernameHidden && (
                             <div className="space-y-1.5">
-                                <Label htmlFor="username" className="text-xs font-medium text-slate-600 dark:text-slate-300">
+                                <Label htmlFor="username" className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
                                     {msg("username")}
                                 </Label>
-                                <Input
-                                    tabIndex={2}
-                                    id="username"
-                                    name="username"
-                                    defaultValue={login.username ?? ""}
-                                    type="text"
-                                    placeholder=""
-                                    autoComplete="username"
-                                    aria-invalid={messagesPerField.existsError("username", "password")}
-                                    className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-700 shadow-sm focus:border-slate-800 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
-                                />
+                                <div className="relative">
+                                    <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">
+                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                            <path d="M2 8a6 6 0 1112 0v2a6 6 0 11-12 0V8z" />
+                                            <path d="M20 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
+                                        </svg>
+                                    </div>
+                                    <Input
+                                        tabIndex={2}
+                                        id="username"
+                                        name="username"
+                                        defaultValue={login.username ?? ""}
+                                        type="text"
+                                        placeholder={msgStr("username")}
+                                        autoComplete="username"
+                                        aria-invalid={messagesPerField.existsError("username", "password")}
+                                        className="h-11 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-4 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
+                                    />
+                                </div>
                             </div>
                         )}
 
                         {realm.password && (
                             <div className="space-y-1.5">
-                                <Label htmlFor="password" className="text-xs font-medium text-slate-600 dark:text-slate-300">
+                                <Label htmlFor="password" className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
                                     {msg("password")}
                                 </Label>
                                 <div className="relative">
+                                    <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">
+                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                            <path d="M6 10V8a6 6 0 1112 0v2" />
+                                            <rect x="5" y="10" width="14" height="10" rx="2" />
+                                            <path d="M12 15v2" />
+                                        </svg>
+                                    </div>
                                     <PasswordWrapper i18n={i18n} passwordInputId="password">
                                         <Input
                                             tabIndex={3}
                                             id="password"
                                             name="password"
                                             type="password"
-                                            placeholder=""
+                                            placeholder={msgStr("password")}
                                             autoComplete="current-password"
                                             aria-invalid={messagesPerField.existsError("username", "password")}
-                                            className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 pr-11 text-sm text-slate-700 shadow-sm focus:border-slate-800 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
+                                            className="h-11 w-full rounded-2xl border border-slate-200 bg-white/80 pl-11 pr-12 text-sm text-slate-700 shadow-inner focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100"
                                         />
                                     </PasswordWrapper>
                                 </div>
@@ -161,7 +176,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             </div>
                         )}
 
-                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                        <div className="flex flex-wrap items-center justify-between gap-2.5 text-xs font-medium text-slate-500 dark:text-slate-400">
                             {realm.rememberMe && !usernameHidden && (
                                 <label className="inline-flex cursor-pointer items-center gap-2">
                                     <input
@@ -175,16 +190,25 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                     <span>{msg("rememberMe")}</span>
                                 </label>
                             )}
+                            {realm.resetPasswordAllowed && (
+                                <a
+                                    tabIndex={6}
+                                    href={url.loginResetCredentialsUrl}
+                                    className="font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                                >
+                                    {msg("doForgotPassword")}
+                                </a>
+                            )}
                         </div>
 
-                        <div id="kc-form-buttons" className="pt-2">
+                        <div id="kc-form-buttons" className="pt-1">
                             <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                             <Button
                                 tabIndex={7}
                                 disabled={isLoginButtonDisabled}
                                 className={cn(
-                                    "flex h-11 w-full items-center justify-center rounded-full text-sm font-semibold tracking-wide text-white shadow-sm transition",
-                                    "bg-slate-900 hover:bg-slate-800",
+                                    "flex h-10 w-full items-center justify-center rounded-2xl text-xs font-semibold uppercase tracking-[0.35em] text-white shadow-lg transition",
+                                    "bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:-translate-y-0.5 hover:from-blue-600 hover:to-indigo-600",
                                     isLoginButtonDisabled && "opacity-70 hover:translate-y-0"
                                 )}
                                 name="login"
@@ -193,28 +217,17 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 value={msgStr("doLogIn")}
                             >
                                 {isLoginButtonDisabled ? (
-                                    <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em]">
-                                        <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                                    <div className="flex items-center gap-1.5">
+                                        <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
                                             <path className="opacity-75" d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                                         </svg>
-                                        <span>Working</span>
+                                        <span className="tracking-[0.35em]">Wait</span>
                                     </div>
                                 ) : (
-                                    "Next"
+                                    "Get started"
                                 )}
                             </Button>
-
-                            <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-                                {realm.resetPasswordAllowed && (
-                                    <a href={url.loginResetCredentialsUrl} className="hover:text-slate-700 dark:hover:text-slate-200">
-                                        {msg("doForgotPassword")}
-                                    </a>
-                                )}
-                                <a href="https://support.google.com/accounts" target="_blank" rel="noreferrer" className="hover:text-slate-700 dark:hover:text-slate-200">
-                                    {msg("needHelp") || "Need help?"}
-                                </a>
-                            </div>
                         </div>
                     </form>
                 </div>
