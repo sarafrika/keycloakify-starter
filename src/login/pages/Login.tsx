@@ -30,12 +30,12 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
                 <div className="text-center">
-                    <span className="text-slate-600 dark:text-slate-400">
+                    <span className="text-muted-foreground text-sm">
                         {msg("noAccount")}{" "}
                         <a
                             tabIndex={8}
                             href={url.registrationUrl}
-                            className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                            className="text-primary hover:underline font-medium"
                         >
                             {msg("doRegister")}
                         </a>
@@ -45,33 +45,33 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             socialProvidersNode={
                 <>
                     {social?.providers !== undefined && social.providers.length !== 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-3">
                             {social.providers.map(p => (
                                 <a
                                     key={p.alias}
                                     id={`social-${p.alias}`}
-                                    className="flex items-center justify-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-2 border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-slate-300/60 dark:hover:border-slate-600/60 transition-all duration-200 group shadow-sm hover:shadow-md"
+                                    className="flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded hover:bg-muted/50 transition-colors"
                                     href={p.loginUrl}
                                 >
-                                    <SocialIcon provider={p.alias} className="h-5 w-5 flex-shrink-0" />
-                                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors text-sm sm:text-base">
+                                    <SocialIcon provider={p.alias} className="h-5 w-5" />
+                                    <span className="text-sm font-medium text-foreground">
                                         {p.alias === "google"
-                                            ? "Google"
+                                            ? "Continue with Google"
                                             : p.alias === "apple"
-                                              ? "Apple"
+                                              ? "Continue with Apple"
                                               : p.alias === "microsoft"
-                                                ? "Microsoft"
+                                                ? "Continue with Microsoft"
                                                 : p.alias === "facebook"
-                                                  ? "Facebook"
+                                                  ? "Continue with Facebook"
                                                   : p.alias === "github"
-                                                    ? "GitHub"
+                                                    ? "Continue with GitHub"
                                                     : p.alias === "twitter" || p.alias === "x"
-                                                      ? "X"
+                                                      ? "Continue with X"
                                                       : p.alias === "linkedin"
-                                                        ? "LinkedIn"
+                                                        ? "Continue with LinkedIn"
                                                         : p.alias === "discord"
-                                                          ? "Discord"
-                                                          : p.displayName || p.alias}
+                                                          ? "Continue with Discord"
+                                                          : `Continue with ${p.displayName || p.alias}`}
                                     </span>
                                 </a>
                             ))}
@@ -89,63 +89,46 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             return true;
                         }}
                         action={url.loginAction}
-                        className="space-y-5"
+                        className="space-y-4"
                         method="post"
                     >
                         {!usernameHidden && (
-                            <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                                    <svg
-                                        className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={1.5}
-                                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                                        />
-                                    </svg>
-                                </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="username" className="text-sm font-medium text-foreground">
+                                    Email
+                                </Label>
                                 <Input
                                     tabIndex={2}
                                     id="username"
                                     name="username"
                                     defaultValue={login.username ?? ""}
                                     type="text"
-                                    placeholder="Email address"
                                     autoFocus
                                     autoComplete="username"
                                     aria-invalid={messagesPerField.existsError("username", "password")}
-                                    className="w-full h-14 pl-12 pt-6 pb-2 bg-white/80 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-transparent"
+                                    className={cn(
+                                        "h-11",
+                                        messagesPerField.existsError("username", "password") && "border-destructive focus-visible:ring-destructive"
+                                    )}
                                 />
-                                <Label
-                                    htmlFor="username"
-                                    className="absolute left-12 top-2 text-xs font-medium text-blue-600 dark:text-blue-400 transition-all duration-200 pointer-events-none"
-                                >
-                                    Email address
-                                </Label>
                             </div>
                         )}
 
                         {realm.password && (
-                            <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                                    <svg
-                                        className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors duration-200"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={1.5}
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                        />
-                                    </svg>
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                    <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                                        Password
+                                    </Label>
+                                    {realm.resetPasswordAllowed && (
+                                        <a
+                                            tabIndex={6}
+                                            href={url.loginResetCredentialsUrl}
+                                            className="text-sm font-medium text-primary hover:underline"
+                                        >
+                                            {msg("doForgotPassword")}
+                                        </a>
+                                    )}
                                 </div>
                                 <PasswordWrapper i18n={i18n} passwordInputId="password">
                                     <Input
@@ -153,34 +136,21 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                         id="password"
                                         name="password"
                                         type="password"
-                                        placeholder="Password"
                                         autoComplete="current-password"
                                         aria-invalid={messagesPerField.existsError("username", "password")}
-                                        className="w-full h-14 pl-12 pt-6 pb-2 bg-white/80 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-transparent"
+                                        className={cn(
+                                            "h-11",
+                                            messagesPerField.existsError("username", "password") && "border-destructive focus-visible:ring-destructive"
+                                        )}
                                     />
                                 </PasswordWrapper>
-                                <Label
-                                    htmlFor="password"
-                                    className="absolute left-12 top-2 text-xs font-medium text-blue-600 dark:text-blue-400 transition-all duration-200 pointer-events-none"
-                                >
-                                    Password
-                                </Label>
                             </div>
                         )}
 
                         {/* Error Messages */}
                         {messagesPerField.existsError("username", "password") && (
-                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
-                                <svg className="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                </svg>
+                            <div className="text-sm text-destructive">
                                 <span
-                                    className="text-sm text-red-600 dark:text-red-400"
                                     dangerouslySetInnerHTML={{
                                         __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
                                     }}
@@ -188,52 +158,36 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             </div>
                         )}
 
-                        <div className="flex justify-between items-center">
-                            {realm.rememberMe && !usernameHidden && (
-                                <div className="flex items-center space-x-2">
-                                    <input
-                                        tabIndex={5}
-                                        id="rememberMe"
-                                        name="rememberMe"
-                                        type="checkbox"
-                                        className="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600"
-                                        defaultChecked={!!login.rememberMe}
-                                    />
-                                    <Label htmlFor="rememberMe" className="text-sm text-slate-600 dark:text-slate-400">
-                                        {msg("rememberMe")}
-                                    </Label>
-                                </div>
-                            )}
-                            {realm.resetPasswordAllowed && (
-                                <a
-                                    tabIndex={6}
-                                    href={url.loginResetCredentialsUrl}
-                                    className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-                                >
-                                    {msg("doForgotPassword")}
-                                </a>
-                            )}
-                        </div>
+                        {realm.rememberMe && !usernameHidden && (
+                            <div className="flex items-center space-x-2">
+                                <input
+                                    tabIndex={5}
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                    type="checkbox"
+                                    className="h-4 w-4 rounded border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                    defaultChecked={!!login.rememberMe}
+                                />
+                                <Label htmlFor="rememberMe" className="text-sm text-muted-foreground font-normal cursor-pointer">
+                                    {msg("rememberMe")}
+                                </Label>
+                            </div>
+                        )}
 
                         <div id="kc-form-buttons" className="pt-2">
                             <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                             <Button
                                 tabIndex={7}
                                 disabled={isLoginButtonDisabled}
-                                className={cn(
-                                    "w-full h-12 text-base font-semibold rounded-xl",
-                                    "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
-                                    "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200",
-                                    isLoginButtonDisabled && "opacity-50 cursor-not-allowed transform-none"
-                                )}
+                                className="w-full h-10"
                                 name="login"
                                 id="kc-login"
                                 type="submit"
                                 value={msgStr("doLogIn")}
                             >
                                 {isLoginButtonDisabled ? (
-                                    <div className="flex items-center justify-center space-x-2">
-                                        <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                             <path
                                                 className="opacity-75"
@@ -244,7 +198,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                         <span>Signing in...</span>
                                     </div>
                                 ) : (
-                                    "Sign in"
+                                    msgStr("doLogIn")
                                 )}
                             </Button>
                         </div>

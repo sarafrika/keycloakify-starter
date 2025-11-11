@@ -39,28 +39,25 @@ export default function Register(props: RegisterProps) {
             socialProvidersNode={
                 <>
                     {social?.providers !== undefined && social.providers.length !== 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-3">
                             {social.providers.map(p => (
                                 <a
                                     key={p.alias}
                                     id={`social-${p.alias}`}
-                                    className="flex items-center justify-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-2 border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-slate-300/60 dark:hover:border-slate-600/60 transition-all duration-200 group shadow-sm hover:shadow-md"
+                                    className="flex items-center justify-center gap-3 px-4 py-2.5 border border-border rounded hover:bg-muted/50 transition-colors"
                                     href={p.loginUrl}
                                 >
-                                    <SocialIcon
-                                        provider={p.alias}
-                                        className="h-5 w-5 flex-shrink-0"
-                                    />
-                                    <span className="font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors text-sm sm:text-base">
-                                        {p.alias === 'google' ? 'Google' :
-                                            p.alias === 'apple' ? 'Apple' :
-                                                p.alias === 'microsoft' ? 'Microsoft' :
-                                                    p.alias === 'facebook' ? 'Facebook' :
-                                                        p.alias === 'github' ? 'GitHub' :
-                                                            p.alias === 'twitter' || p.alias === 'x' ? 'X' :
-                                                                p.alias === 'linkedin' ? 'LinkedIn' :
-                                                                    p.alias === 'discord' ? 'Discord' :
-                                                                        p.displayName || p.alias}
+                                    <SocialIcon provider={p.alias} className="h-5 w-5" />
+                                    <span className="text-sm font-medium text-foreground">
+                                        {p.alias === 'google' ? 'Sign up with Google' :
+                                            p.alias === 'apple' ? 'Sign up with Apple' :
+                                                p.alias === 'microsoft' ? 'Sign up with Microsoft' :
+                                                    p.alias === 'facebook' ? 'Sign up with Facebook' :
+                                                        p.alias === 'github' ? 'Sign up with GitHub' :
+                                                            p.alias === 'twitter' || p.alias === 'x' ? 'Sign up with X' :
+                                                                p.alias === 'linkedin' ? 'Sign up with LinkedIn' :
+                                                                    p.alias === 'discord' ? 'Sign up with Discord' :
+                                                                        `Sign up with ${p.displayName || p.alias}`}
                                     </span>
                                 </a>
                             ))}
@@ -106,23 +103,14 @@ export default function Register(props: RegisterProps) {
                             }}
                             data-action={recaptchaAction}
                             type="submit"
-                            className={cn(
-                                "w-full h-12 text-base font-semibold rounded-xl",
-                                "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700",
-                                "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
-                            )}
+                            className="w-full h-10"
                         >
                             {msg("doRegister")}
                         </Button>
                     ) : (
                         <Button
                             disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
-                            className={cn(
-                                "w-full h-12 text-base font-semibold rounded-xl",
-                                "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700",
-                                "text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200",
-                                (!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)) && "opacity-50 cursor-not-allowed transform-none"
-                            )}
+                            className="w-full h-10"
                             type="submit"
                             value={msgStr("doRegister")}
                         >
@@ -130,16 +118,15 @@ export default function Register(props: RegisterProps) {
                         </Button>
                     )}
 
-                    <Button
-                        variant="outline"
-                        className="w-full h-12 text-base font-medium rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = url.loginUrl;
-                        }}
-                    >
-                        {msg("backToLogin")}
-                    </Button>
+                    <div className="text-center text-sm text-muted-foreground">
+                        {msg("backToLogin")}{" "}
+                        <a
+                            href={url.loginUrl}
+                            className="text-primary hover:underline font-medium"
+                        >
+                            {msgStr("doLogIn")}
+                        </a>
+                    </div>
                 </div>
             </form>
         </Template>
@@ -157,30 +144,26 @@ function TermsAcceptance(props: {
     const { msg } = i18n;
 
     return (
-        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-            <div className="flex items-start gap-3">
+        <div className="space-y-2">
+            <div className="flex items-start gap-2">
                 <input
                     type="checkbox"
                     id="termsAccepted"
                     name="termsAccepted"
-                    className="mt-1 h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600"
+                    className="mt-1 h-4 w-4 rounded border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     checked={areTermsAccepted}
                     onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}
                     aria-invalid={messagesPerField.existsError("termsAccepted")}
                 />
                 <div className="flex-1">
-                    <Label htmlFor="termsAccepted" className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <Label htmlFor="termsAccepted" className="text-sm text-muted-foreground font-normal cursor-pointer">
                         {msg("acceptTerms")}
                     </Label>
                 </div>
             </div>
             {messagesPerField.existsError("termsAccepted") && (
-                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg">
-                    <svg className="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                <div className="text-sm text-destructive">
                     <span
-                        className="text-sm text-red-600 dark:text-red-400"
                         dangerouslySetInnerHTML={{
                             __html: kcSanitize(messagesPerField.get("termsAccepted"))
                         }}
